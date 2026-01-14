@@ -1,2 +1,9 @@
-# ECGenius-Ontology-CDSS
-Research repository for ECGenius: an ontology-driven, multi-label ECG interpretation and clinical decision support system combining deep learning, rule-based reasoning, and patient history for explainable diagnosis and triage.
+## ECGenius: Ontology-Guided ECG Decision Support System
+
+This repository contains the ontology, rule engine, and deep learning
+architectures for a multi-label ECG interpretation and triage system.
+
+⚠️ No patient-identifiable or clinical data is included.
+
+Clinical datasets (AIIMS, PhysioNet) are used under institutional and
+license agreements and are not publicly shared.
