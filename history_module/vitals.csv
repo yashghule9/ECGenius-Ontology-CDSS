@@ -1,0 +1,7 @@
+vital_id,vital_name,unit,description
+sbp,Systolic_BP,mmHg,Systolic blood pressure
+hr,Heart_Rate,bpm,Heart rate
+spo2,SpO2,%,Oxygen saturation
+dbp,Diastolic_BP,mmHg,Diastolic blood pressure
+rr,Respiratory_Rate,breaths/min,Respiratory rate
+temp,Temperature,celsius,Body temperature

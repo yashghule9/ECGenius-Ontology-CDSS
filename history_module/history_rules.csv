@@ -1,6 +1,41 @@
-rule_id,rule_type,primary_label,related_labels,action,priority,description
-R1,mutual_exclusion,Normal ECG,"Arrhythmia;ST Elevation;Bradycardia",remove_related,1,If ECG is normal remove abnormal conditions
-R2,mutual_exclusion,ST Elevation,"ST Depression",remove_related,1,ST elevation and depression cannot coexist
-R3,dependency,Myocardial Infarction,"ST Elevation;Troponin High",require_all,2,MI requires ST elevation and high troponin
-R4,boost,Atrial Fibrillation,"Irregular Rhythm",increase_weight,3,Irregular rhythm supports AF diagnosis
-R5,penalty,Normal ECG,"Chest Pain",decrease_weight,3,Chest pain alone doesn’t confirm abnormal ECG
+rule_id,label_id,trigger,action,delta
+H1,STEMI,chest_pain,add_score,0.3
+H2,STEMI,no_chest_pain,reduce_score,-0.3
+H3,AF,palpitations,add_score,0.2
+H4,AF,asymptomatic,reduce_tier,1
+H5,Ischemia,young_age,reduce_score,-0.1
+H6,STEMI,dyspnea,add_score,0.1
+H7,STEMI,cad,add_score,0.1
+H8,STEMI,dm,add_score,0.05
+H9,STEMI,sbp_lt_90,add_score,0.15
+H10,STEMI,spo2_lt_94,add_score,0.1
+H11,VF,syncope,add_score,0.3
+H12,VF,sbp_lt_80,add_score,0.2
+H13,VF,hr_gt_200,add_score,0.15
+H14,AF,syncope,add_score,0.2
+H15,AF,dizziness,add_score,0.1
+H16,AF,htn,add_score,0.1
+H17,AF,dm,add_score,0.05
+H18,AF,hr_gt_150,add_score,0.15
+H19,LVH,htn,add_score,0.2
+H20,LVH,dyspnea,add_score,0.1
+H21,LVH,dizziness,add_score,0.05
+H22,LVH,sbp_gt_140,add_score,0.15
+H23,LVH,young_age,reduce_score,-0.15
+H24,LBBB,chest_pain,add_score,0.15
+H25,LBBB,cad,add_score,0.2
+H26,LBBB,dyspnea,add_score,0.1
+H27,RBBB,dyspnea,add_score,0.1
+H28,RBBB,palpitations,add_score,0.1
+H29,SVT,palpitations,add_score,0.25
+H30,SVT,dizziness,add_score,0.1
+H31,SVT,hr_gt_160,add_score,0.2
+H32,SVT,asymptomatic,reduce_tier,1
+H33,VT,palpitations,add_score,0.2
+H34,VT,syncope,add_score,0.25
+H35,VT,cad,add_score,0.15
+H36,VT,sbp_lt_90,add_score,0.2
+H37,Ischemia,chest_pain,add_score,0.2
+H38,Ischemia,dyspnea,add_score,0.1
+H39,Ischemia,cad,add_score,0.15
+H40,NSR,asymptomatic,reduce_tier,1

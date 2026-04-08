@@ -1,0 +1,11 @@
+symptom_id,symptom_name,description,data_type
+chest_pain,Chest Pain,Central crushing chest pain,boolean
+palpitations,Palpitations,Awareness of heartbeat,boolean
+syncope,Syncope,Transient loss of consciousness,boolean
+dizziness,Dizziness,Lightheadedness,boolean
+dyspnea,Shortness of Breath,Breathlessness,boolean
+nausea,Nausea,Feeling of sickness,boolean
+diaphoresis,Diaphoresis,Profuse sweating,boolean
+fatigue,Fatigue,Unusual tiredness or weakness,boolean
+presyncope,Pre-syncope,Near fainting episode,boolean
+orthopnea,Orthopnea,Breathlessness when lying flat,boolean

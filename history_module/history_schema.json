@@ -1,33 +1,52 @@
 {
-  "entities": {
-    "symptoms": [
-      "chest_pain",
-      "shortness_of_breath",
-      "palpitations"
-    ],
-    "ecg_features": [
-      "st_elevation",
-      "irregular_rhythm"
-    ],
-    "lab_results": [
-      "troponin"
-    ],
-    "diseases": [
-      "myocardial_infarction",
-      "atrial_fibrillation",
-      "normal_ecg"
-    ]
+  "AF": {
+    "symptoms": ["palpitations", "syncope", "dizziness"],
+    "risk_factors": ["htn", "dm"],
+    "vitals": ["hr"]
   },
-
-  "relationships": {
-    "myocardial_infarction": {
-      "symptoms": ["chest_pain", "shortness_of_breath"],
-      "ecg_features": ["st_elevation"],
-      "lab_results": ["troponin"]
-    },
-    "atrial_fibrillation": {
-      "symptoms": ["palpitations"],
-      "ecg_features": ["irregular_rhythm"]
-    }
+  "STEMI": {
+    "symptoms": ["chest_pain", "dyspnea"],
+    "risk_factors": ["cad", "dm"],
+    "vitals": ["sbp", "spo2"]
+  },
+  "NSR": {
+    "symptoms": [],
+    "risk_factors": [],
+    "vitals": ["hr"]
+  },
+  "VF": {
+    "symptoms": ["syncope", "chest_pain"],
+    "risk_factors": ["cad"],
+    "vitals": ["sbp", "hr"]
+  },
+  "LVH": {
+    "symptoms": ["dyspnea", "dizziness"],
+    "risk_factors": ["htn", "dm"],
+    "vitals": ["sbp"]
+  },
+  "LBBB": {
+    "symptoms": ["dyspnea", "chest_pain"],
+    "risk_factors": ["cad", "htn"],
+    "vitals": ["hr", "sbp"]
+  },
+  "RBBB": {
+    "symptoms": ["dyspnea", "palpitations"],
+    "risk_factors": ["htn"],
+    "vitals": ["hr"]
+  },
+  "SVT": {
+    "symptoms": ["palpitations", "dizziness", "syncope"],
+    "risk_factors": ["htn", "dm"],
+    "vitals": ["hr"]
+  },
+  "VT": {
+    "symptoms": ["palpitations", "syncope", "chest_pain"],
+    "risk_factors": ["cad"],
+    "vitals": ["sbp", "hr"]
+  },
+  "Ischemia": {
+    "symptoms": ["chest_pain", "dyspnea"],
+    "risk_factors": ["cad", "dm", "htn"],
+    "vitals": ["sbp", "spo2"]
   }
 }

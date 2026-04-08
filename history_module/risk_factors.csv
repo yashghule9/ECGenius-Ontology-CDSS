@@ -1,0 +1,11 @@
+risk_id,risk_name,description,data_type
+htn,Hypertension,Known high blood pressure,boolean
+dm,Diabetes,Known diabetes mellitus,boolean
+cad,Coronary_Artery_Disease,Known CAD,boolean
+young_age,Age_Under_40,Patient age < 40 years,boolean
+smoking,Smoking,Current or ex-smoker,boolean
+family_hx,Family_History,Family history of cardiac disease,boolean
+hyperlipidemia,Hyperlipidemia,Known high cholesterol,boolean
+obesity,Obesity,BMI > 30,boolean
+ckd,Chronic_Kidney_Disease,Known CKD,boolean
+prior_mi,Prior_MI,Previous myocardial infarction,boolean
