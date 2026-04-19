@@ -234,6 +234,18 @@ class DecisionFusion:
                 )
                 confidence = "POSSIBLE"
 
+            # Safety: Tier-1 labels with high model confidence cannot be POSSIBLE.
+            # When history is absent or sparse, the AI contribution alone (capped at 0.5)
+            # can prevent a high-confidence Tier-1 prediction from reaching PROBABLE.
+            # This override prevents a 95%-confident STEMI from being labelled "POSSIBLE".
+            if tier == 1 and result.pai >= 0.70 and confidence == "POSSIBLE":
+                logger.warning(
+                    "Safety override: Tier-1 '%s' Pai=%.3f elevated from POSSIBLE to PROBABLE "
+                    "(insufficient history data suppressed total score).",
+                    result.label_id, result.pai,
+                )
+                confidence = "PROBABLE"
+
             # ── XAI evidence ───────────────────────────────────────────
             supporting    = delta.supporting    if delta else []
             contradicting = delta.contradicting if delta else []

@@ -2,12 +2,38 @@ label_id,label_name,parent_label,category,description,is_leaf
 ROOT,ECG_Findings,,ROOT,All ECG-related findings,FALSE
 
 Rhythm,Rhythm_Disorder,ROOT,Rhythm,Abnormal heart rhythms,FALSE
-AF,Atrial_Fibrillation,Rhythm,Rhythm,Irregularly irregular rhythm,TRUE
-NSR,Normal_Sinus_Rhythm,Rhythm,Rhythm,Normal heart rhythm,TRUE
-VF,Ventricular_Fibrillation,Rhythm,Rhythm,Chaotic ventricular rhythm (cardiac arrest),TRUE
+AF,Atrial_Fibrillation,Rhythm,Rhythm,Irregularly irregular rhythm without discrete P waves,TRUE
+NSR,Normal_Sinus_Rhythm,Rhythm,Rhythm,Normal heart rhythm with regular P waves and PR interval,TRUE
+VF,Ventricular_Fibrillation,Rhythm,Rhythm,Chaotic ventricular rhythm — cardiac arrest,TRUE
+VT,Ventricular_Tachycardia,Rhythm,Rhythm,Wide-complex tachycardia >100 bpm originating from ventricle,TRUE
+SVT,Supraventricular_Tachycardia,Rhythm,Rhythm,Narrow-complex tachycardia originating above His bundle,TRUE
+Atrial_Flutter,Atrial_Flutter,Rhythm,Rhythm,Regular atrial rate ~300 bpm with characteristic sawtooth pattern,TRUE
+Sinus_Bradycardia,Sinus_Bradycardia,Rhythm,Rhythm,Sinus rhythm with HR <60 bpm,TRUE
+Sinus_Tachycardia,Sinus_Tachycardia,Rhythm,Rhythm,Sinus rhythm with HR >100 bpm — usually secondary,TRUE
 
 Ischemia,Ischemic_Changes,ROOT,Ischemia,Ischemic ECG abnormalities,FALSE
-STEMI,ST_Elevation_MI,Ischemia,Ischemia,Acute myocardial infarction with ST elevation,TRUE
+STEMI,ST_Elevation_MI,Ischemia,Ischemia,Acute MI with ST elevation in ≥2 contiguous leads,TRUE
+NSTEMI,Non_ST_Elevation_MI,Ischemia,Ischemia,Acute MI without ST elevation — troponin positive,TRUE
+Unstable_Angina,Unstable_Angina,Ischemia,Ischemia,ACS without myocardial necrosis — dynamic ECG changes,TRUE
 
-Structural,Structural_Disorder,ROOT,Structure,Heart structural abnormalities,FALSE
-LVH,Left_Ventricular_Hypertrophy,Structural,Structure,Thickened left ventricular wall,TRUE
+Structural,Structural_Disorder,ROOT,Structure,Heart structural and electrical abnormalities,FALSE
+LVH,Left_Ventricular_Hypertrophy,Structural,Structure,Thickened LV wall — meets voltage criteria,TRUE
+LVH_Strain,LVH_with_Strain_Pattern,Structural,Structure,LVH with lateral ST depression and T inversion — STEMI mimic,TRUE
+Pericarditis,Pericarditis,Structural,Structure,Pericardial inflammation — diffuse saddle-shaped ST elevation with PR depression,TRUE
+Long_QT,Long_QT_Syndrome,Structural,Structure,Prolonged QTc >450ms men / >470ms women — Torsades de Pointes risk,TRUE
+Brugada,Brugada_Pattern,Structural,Structure,Type-1 coved ST elevation in V1-V2 — sudden cardiac death risk,TRUE
+
+Conduction,Conduction_Disorder,ROOT,Conduction,Cardiac conduction system abnormalities,FALSE
+LBBB,Left_Bundle_Branch_Block,Conduction,Conduction,QRS >120ms with broad notched R in V5-V6 and negative V1,TRUE
+RBBB,Right_Bundle_Branch_Block,Conduction,Conduction,QRS >120ms with RSR prime pattern in V1-V2 and wide S in V6,TRUE
+Heart_Block_1st,AV_Block_First_Degree,Conduction,Conduction,PR interval >200ms — usually benign,TRUE
+Heart_Block_2nd_MobitzI,AV_Block_Wenckebach,Conduction,Conduction,Progressive PR lengthening then dropped QRS — usually benign,TRUE
+Heart_Block_2nd_MobitzII,AV_Block_Mobitz_II,Conduction,Conduction,Sudden dropped QRS without PR change — high risk of complete block,TRUE
+Heart_Block_3rd,Complete_AV_Block,Conduction,Conduction,Complete P-wave to QRS dissociation — haemodynamic emergency,TRUE
+
+ECG_Pattern,ECG_Intermediate_Findings,ROOT,Pattern,Intermediate ECG signal findings used as derived-rule triggers — not standalone diagnoses,FALSE
+ST_Elevation,ST_Elevation_Pattern,ECG_Pattern,Pattern,ST segment elevation detected on ECG — requires clinical correlation,TRUE
+ST_Depression,ST_Depression_Pattern,ECG_Pattern,Pattern,ST segment depression detected on ECG — requires clinical correlation,TRUE
+Irregular_RR,Irregular_RR_Pattern,ECG_Pattern,Pattern,Irregularly irregular R-R intervals — evaluate for AF or flutter,TRUE
+Wide_QRS,Wide_QRS_Pattern,ECG_Pattern,Pattern,QRS duration >120ms — evaluate for BBB or ventricular rhythm,TRUE
+Short_PR,Short_PR_Pattern,ECG_Pattern,Pattern,PR interval <120ms — possible pre-excitation (WPW),TRUE

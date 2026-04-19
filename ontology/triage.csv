@@ -1,6 +1,28 @@
 label_id,tier,description,default_action,allow_downgrade
-STEMI,1,Life-threatening emergency,Immediate PCI referral,FALSE
-VF,1,Cardiac arrest,Start ACLS,FALSE
-AF,2,Potentially unstable rhythm,Rate or rhythm control,TRUE
-LVH,3,Chronic structural condition,Outpatient evaluation,TRUE
-NSR,3,Normal finding,No action required,TRUE
+STEMI,1,Life-threatening emergency — acute coronary occlusion,Immediate PCI referral — door-to-balloon <90 min,FALSE
+VF,1,Cardiac arrest — pulseless,Start ACLS — immediate defibrillation,FALSE
+VT,1,Life-threatening ventricular arrhythmia,Assess pulse — cardioversion if pulseless or haemodynamically unstable,FALSE
+Heart_Block_3rd,1,Complete AV dissociation — haemodynamic emergency,Emergent temporary pacing — cardiology stat,FALSE
+Heart_Block_2nd_MobitzII,1,High-risk block — unpredictable progression to complete block,Urgent cardiology review — prepare for pacing,FALSE
+NSTEMI,1,High-risk ACS — ongoing myocardial injury,Immediate anticoagulation and urgent cardiology referral,FALSE
+Brugada,1,Sudden cardiac death risk — especially at night or with fever,Urgent electrophysiology referral — ICD consideration,FALSE
+AF,2,Potentially unstable rhythm — stroke and haemodynamic risk,Rate or rhythm control — CHA2DS2-VASc anticoagulation assessment,TRUE
+SVT,2,Haemodynamically significant arrhythmia,Vagal manoeuvres or adenosine — cardioversion if unstable,TRUE
+Atrial_Flutter,2,Rapid ventricular rate — 2:1 block common,Rate control — cardioversion — anticoagulation consideration,TRUE
+Heart_Block_2nd_MobitzI,2,Usually benign but monitor for progression — especially if wide QRS,Cardiology review — ECG monitoring,TRUE
+Unstable_Angina,2,High-risk ACS equivalent — ongoing ischaemia without necrosis,Aspirin anticoagulation — urgent cardiology referral — serial ECG,TRUE
+LBBB,2,New LBBB with chest pain is STEMI-equivalent per Sgarbossa criteria,Urgent cardiology review — rule out ACS — serial ECG and troponin,TRUE
+Long_QT,2,Torsades de Pointes risk — can degenerate to VF,Stop QT-prolonging drugs — correct K+ Mg2+ — monitor,TRUE
+Pericarditis,3,Inflammatory pericardial condition — usually self-limiting,NSAIDs — rest — cardiology review — rule out myocarditis,TRUE
+LVH,3,Chronic structural condition — hypertensive heart disease,Blood pressure control — outpatient cardiology evaluation,TRUE
+LVH_Strain,3,LVH with strain pattern — lateral ST-T changes are secondary — STEMI mimic,Outpatient evaluation — rule out concomitant ischaemia,TRUE
+RBBB,3,Conduction abnormality — often benign if no prior history,Outpatient cardiology review — evaluate for underlying cause,TRUE
+Heart_Block_1st,3,Usually benign — check for medication effect (digoxin beta-blocker),Outpatient review — medication check,TRUE
+Sinus_Bradycardia,3,Slow heart rate — assess symptoms and cause,Symptom assessment — medication review — evaluate for sick sinus,TRUE
+Sinus_Tachycardia,3,Sinus rate >100 bpm — almost always secondary,Identify and treat underlying cause — pain fever anaemia dehydration,TRUE
+NSR,3,Normal ECG finding,No action required,TRUE
+ST_Elevation,2,ECG pattern finding — evaluate for STEMI vs pericarditis vs LVH strain vs Brugada,Urgent clinical assessment — do not act on ECG pattern alone,TRUE
+ST_Depression,2,ECG pattern finding — evaluate for NSTEMI vs ischaemia vs drug effect,Clinical assessment — serial ECG — troponin,TRUE
+Irregular_RR,2,ECG pattern finding — evaluate for AF or atrial flutter,Clinical assessment — rhythm strip,TRUE
+Wide_QRS,3,ECG pattern finding — evaluate for BBB or ventricular rhythm,Clinical assessment — full 12-lead review,TRUE
+Short_PR,3,ECG pattern finding — possible pre-excitation or WPW,Clinical assessment — electrophysiology referral if symptomatic,TRUE

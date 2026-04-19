@@ -256,25 +256,41 @@ def _handle_derived(ctx: RuleContext, rule: RuleRow) -> None:
             )
             logger.info("[%s] Derived boost: '%s' += %.2f", rule.rule_id, derived_id, rule.delta)
         else:
-            # Not predicted by model — create a synthetic result
-            # We need the mapper's enrichment; import lazily to avoid circular deps
-            try:
-                from inference.ontology_mapper import OntologyMapper
-                _mapper = OntologyMapper.__new__(OntologyMapper)
-                # Note: in production, pass the shared mapper instance via ctx
-                # For now, log and skip — caller should inject mapper into ctx
+            # Not predicted by model — inject a synthetic OntologyResult via mapper
+            mapper = getattr(ctx, '_mapper', None)
+            if mapper is None:
                 logger.warning(
                     "[%s] Derived label '%s' not in model output and no mapper "
-                    "injected into context — skipping injection. "
+                    "injected into context — skipping. "
                     "Pass mapper=mapper_instance to RuleExecutor.",
                     rule.rule_id, derived_id,
                 )
-            except ImportError:
-                logger.warning("[%s] Could not import OntologyMapper for derived label.", rule.rule_id)
+                ctx.derived_log.append(
+                    f"[{rule.rule_id}] Cannot derive '{derived_id}': mapper not available."
+                )
+                return
 
+            if not mapper.label_exists(derived_id):
+                logger.warning(
+                    "[%s] Derived label '%s' not found in ontology — skipping.",
+                    rule.rule_id, derived_id,
+                )
+                ctx.derived_log.append(
+                    f"[{rule.rule_id}] Cannot derive '{derived_id}': label not in ontology."
+                )
+                return
+
+            synthetic = mapper._enrich(derived_id, rule.delta)
+            synthetic.score = rule.delta
+            ctx.results.append(synthetic)
+            ctx.build_map()  # rebuild so downstream rules can see the new label
             ctx.derived_log.append(
-                f"[{rule.rule_id}] Would derive '{derived_id}' from "
-                f"'{rule.primary_label}' + {rule.required_symptoms} but mapper not available."
+                f"[{rule.rule_id}] Derived '{derived_id}' (pai={rule.delta:.2f}) "
+                f"from '{rule.primary_label}' + symptoms {rule.required_symptoms}"
+            )
+            logger.info(
+                "[%s] Derived: injected synthetic '%s' (pai=%.2f)",
+                rule.rule_id, derived_id, rule.delta,
             )
     else:
         logger.warning("[%s] Derived: unknown action '%s' — skipping.", rule.rule_id, rule.action)
@@ -457,8 +473,11 @@ class RuleExecutor:
 
         with open(rules_csv, newline="", encoding="utf-8") as f:
             for row in csv.DictReader(f):
-                related_raw = row.get("related_labels", "")
-                symptom_raw = row.get("required_symptoms", "")
+                rule_id_raw = (row.get("rule_id") or "").strip()
+                if not rule_id_raw or rule_id_raw.startswith("#"):
+                    continue
+                related_raw = row.get("related_labels", "") or ""
+                symptom_raw = row.get("required_symptoms", "") or ""
 
                 self._rules.append(RuleRow(
                     rule_id=row.get("rule_id", "?"),

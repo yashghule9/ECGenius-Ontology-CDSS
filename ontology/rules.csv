@@ -1,10 +1,59 @@
 rule_id,rule_type,primary_label,related_labels,required_symptoms,action,delta
+# ── Rhythm mutual exclusion ───────────────────────────────────────────────────
+# Only one primary rhythm label survives; highest Pai wins.
+# Tier-1 labels (VF, VT) are NEVER suppressed regardless of Pai.
+R1,mutual_exclusion,Rhythm,AF|NSR|SVT|Atrial_Flutter|Sinus_Bradycardia|Sinus_Tachycardia,,keep_highest,0
 
-R1,mutual_exclusion,Rhythm,AF|NSR|VF,none,keep_highest,0
-R2,precedence,VF,NSR|AF,none,override,0
+# ── Precedence: critical rhythms override lower-acuity ones ──────────────────
+# VF overrides everything (cardiac arrest = no other rhythm relevant)
+R2a,precedence,VF,AF|NSR|SVT|Atrial_Flutter|Sinus_Bradycardia|Sinus_Tachycardia,,override,0
+# VT overrides sinus rhythms (but not AF — both can coexist in certain presentations)
+R2b,precedence,VT,Sinus_Bradycardia|Sinus_Tachycardia|NSR,,override,0
+# Complete AV block overrides lower-degree blocks
+R2c,precedence,Heart_Block_3rd,Heart_Block_2nd_MobitzI|Heart_Block_2nd_MobitzII|Heart_Block_1st,,override,0
+# Mobitz II overrides Mobitz I and 1st degree
+R2d,precedence,Heart_Block_2nd_MobitzII,Heart_Block_2nd_MobitzI|Heart_Block_1st,,override,0
 
-R3,derived,STEMI,ST_Elevation,chest_pain,add_label,0.4
-R4,downgrade,STEMI,no_chest_pain,none,reduce_score,-0.3
+# ── Derived: STEMI from ST elevation pattern ─────────────────────────────────
+# primary_label = trigger (must be in model output)
+# related_labels[0] = diagnosis to derive or boost
+# If ST_Elevation detected AND chest_pain present → derive/boost STEMI
+R3a,derived,ST_Elevation,STEMI,chest_pain,add_label,0.45
+# If ST_Elevation detected WITHOUT chest pain → more likely pericarditis
+R3b,derived,ST_Elevation,Pericarditis,,add_label,0.25
 
-R5,derived,AF,Irregular_RR,none,add_label,0.2
-R6,downgrade,AF,asymptomatic,none,reduce_tier,-1
+# ── Derived: NSTEMI / UA from ST depression pattern ──────────────────────────
+# ST depression + chest pain → NSTEMI
+R4a,derived,ST_Depression,NSTEMI,chest_pain,add_label,0.40
+# ST depression without chest pain → possible UA
+R4b,derived,ST_Depression,Unstable_Angina,,add_label,0.20
+
+# ── Derived: AF from irregular rhythm pattern ─────────────────────────────────
+R5,derived,Irregular_RR,AF,,add_label,0.25
+
+# ── Derived: conduction blocks from wide QRS pattern ─────────────────────────
+# Wide QRS + no structural context → evaluate for LBBB or RBBB
+R6a,derived,Wide_QRS,LBBB,,add_label,0.20
+R6b,derived,Wide_QRS,RBBB,,add_label,0.15
+
+# ── Derived: LBBB + ACS = STEMI-equivalent (Sgarbossa) ──────────────────────
+# New LBBB with chest pain is treated as STEMI-equivalent per AHA 2013
+R7,derived,LBBB,NSTEMI,chest_pain,add_label,0.35
+
+# ── Downgrade rules ───────────────────────────────────────────────────────────
+# Reduce AF urgency if completely asymptomatic (e.g. incidental finding)
+R8a,downgrade,AF,,asymptomatic,reduce_tier,1
+# Reduce SVT urgency if asymptomatic
+R8b,downgrade,SVT,,asymptomatic,reduce_tier,1
+# Reduce Sinus_Bradycardia urgency if asymptomatic (athlete's bradycardia)
+R8c,downgrade,Sinus_Bradycardia,,asymptomatic,reduce_tier,1
+# Reduce LBBB urgency if no chest pain and no CAD risk (chronic, not new)
+R8d,downgrade,LBBB,,no_chest_pain,reduce_score,-0.15
+# Reduce NSTEMI score if young patient with no cardiac risk factors
+R8e,downgrade,NSTEMI,,young_age,reduce_score,-0.10
+
+# ── Safety: flag STEMI + LVH_Strain co-occurrence as possible mimic ──────────
+# LVH strain causes lateral ST depression that can reduce STEMI specificity
+# NOTE: STEMI allow_downgrade=FALSE so score reduction is blocked — this is intentional.
+# The co-occurrence is still surfaced in the active_results list for the clinician.
+R9,downgrade,LVH_Strain,,no_chest_pain,reduce_score,-0.10

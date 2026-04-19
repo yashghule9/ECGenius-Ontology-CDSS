@@ -180,25 +180,25 @@ class HistoryEncoder:
                 adj = rule.delta * weight
                 score_delta += adj
                 supporting.append(desc)
-                evidence.append(f"[{rule.rule_id}] {desc} → score +{adj:.2f}")
+                evidence.append(f"[{rule.rule_id}] {desc} -> score +{adj:.2f}")
 
             elif rule.action == "reduce_score":
                 adj = abs(rule.delta) * weight
                 score_delta -= adj
                 contradicting.append(desc)
-                evidence.append(f"[{rule.rule_id}] {desc} → score -{adj:.2f}")
+                evidence.append(f"[{rule.rule_id}] {desc} -> score -{adj:.2f}")
 
             elif rule.action == "reduce_tier":
                 steps = int(abs(rule.delta))
                 tier_delta += steps
                 contradicting.append(desc)
-                evidence.append(f"[{rule.rule_id}] {desc} → tier +{steps}")
+                evidence.append(f"[{rule.rule_id}] {desc} -> tier +{steps}")
 
             elif rule.action == "add_tier":
                 steps = int(abs(rule.delta))
                 tier_delta -= steps
                 supporting.append(desc)
-                evidence.append(f"[{rule.rule_id}] {desc} → tier -{steps}")
+                evidence.append(f"[{rule.rule_id}] {desc} -> tier -{steps}")
 
             else:
                 logger.warning("[%s] Unknown action '%s' — skipping.", rule.rule_id, rule.action)
@@ -329,12 +329,15 @@ class HistoryEncoder:
             return
         with open(path, newline="", encoding="utf-8") as f:
             for row in csv.DictReader(f):
+                rule_id_raw = (row.get("rule_id") or "").strip()
+                if not rule_id_raw or rule_id_raw.startswith("#"):
+                    continue
                 self._h_rules.append(HistoryRule(
-                    rule_id=row.get("rule_id", "?"),
-                    label_id=row.get("label_id", "").strip(),
-                    trigger=row.get("trigger", "").strip(),
-                    action=row.get("action", "").strip(),
-                    delta=float(row.get("delta", 0) or 0),
+                    rule_id=rule_id_raw,
+                    label_id=(row.get("label_id") or "").strip(),
+                    trigger=(row.get("trigger") or "").strip(),
+                    action=(row.get("action") or "").strip(),
+                    delta=float(row.get("delta") or 0),
                 ))
 
     def _load_weights(self) -> None:

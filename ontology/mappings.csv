@@ -1,6 +1,28 @@
 label_id,snomed_ct,icd10,aha_guideline,notes
-AF,49436004,I48,2019_AHA_AF_Guideline,Consider anticoagulation
-STEMI,57054005,I21,2013_AHA_STEMI_Guideline,Time-critical diagnosis
-LVH,164873001,I51.7,ECG_Interpretation,May show strain pattern
-VF,71908006,I49.01,ACLS_Guidelines,Requires immediate defibrillation
-NSR,Normal,Normal,General,Normal ECG pattern
+AF,49436004,I48,2019_AHA_AF_Guideline,CHA2DS2-VASc score guides anticoagulation — rate vs rhythm decision
+STEMI,57054005,I21.0,2013_AHA_STEMI_Guideline,Time-critical — door-to-balloon <90 min — Sgarbossa criteria if LBBB
+NSTEMI,401303003,I21.4,2014_AHA_NSTEMI_UAGUIDELINE,HEART score risk stratification — serial troponin at 0h and 3h
+Unstable_Angina,4557003,I20.0,2014_AHA_NSTEMI_UAGUIDELINE,Rule out NSTEMI with serial troponin — dynamic ECG changes are key
+LVH,164873001,I11.9,ACC_AHA_Hypertension_2017,Sokolow-Lyon (SV1+RV5>35mm) or Cornell voltage criteria
+LVH_Strain,164873001,I11.9,ACC_AHA_Hypertension_2017,ST depression and T inversion in V5-V6 I aVL due to LVH — STEMI mimic
+VF,71908006,I49.01,ACLS_2020,Requires immediate unsynchronised defibrillation — CPR until shock
+VT,25569003,I47.2,ACLS_2020,Pulse check first — pulseless VT treated as VF — amiodarone for stable
+SVT,6456007,I47.1,AHA_2015_SVT_Guideline,Vagal manoeuvres adenosine cardioversion — determine mechanism
+Atrial_Flutter,5370000,I48.3,2019_AHA_AF_Guideline,Rate control — cardioversion — anticoagulation same as AF
+Sinus_Bradycardia,49710005,R00.1,General,Assess symptoms — medications (beta-blocker digoxin) — sick sinus
+Sinus_Tachycardia,11092001,R00.0,General,Almost always secondary — fever pain anaemia PE hyperthyroidism
+NSR,17621005,Z03.89,General,Normal ECG — no action
+LBBB,164909002,I44.7,2013_AHA_STEMI_Guideline,New LBBB with chest pain = STEMI-equivalent — Sgarbossa ≥3 points
+RBBB,59118001,I45.10,General,New RBBB with anterior MI pattern — check for right heart strain
+Heart_Block_1st,270492004,I44.0,General,PR >200ms — often digoxin beta-blocker or vagal — benign alone
+Heart_Block_2nd_MobitzI,54016002,I44.1,General,Wenckebach — narrow QRS usually benign — wide QRS needs evaluation
+Heart_Block_2nd_MobitzII,28189009,I44.1,ACC_AHA_Brady_2018,High risk — permanent pacemaker indicated per guidelines
+Heart_Block_3rd,27885002,I44.2,ACC_AHA_Brady_2018,Emergent temporary pacing — permanent pacemaker — identify reversible cause
+Pericarditis,3238004,I30.9,2015_ESC_Pericarditis,Diffuse ST elevation with PR depression — saddle-shaped — no reciprocal changes
+Long_QT,9651007,I45.81,AHA_LQTS_2013,QTc >450ms men >470ms women — correct K+ Mg2+ — avoid offending drugs
+Brugada,418818005,I49.8,HRS_2013_Brugada,Type-1 coved pattern — ICD if symptomatic — sodium channel blockers contraindicated
+ST_Elevation,164934002,R94.31,General,ECG finding — requires clinical integration — STEMI vs pericarditis vs Brugada vs LVH strain
+ST_Depression,429559004,R94.31,General,ECG finding — NSTEMI vs digoxin effect vs posterior STEMI vs ischaemia
+Irregular_RR,7536003,R00.8,General,ECG finding — AF vs atrial flutter with variable block vs frequent ectopics
+Wide_QRS,164946000,R94.31,General,ECG finding — LBBB vs RBBB vs VT vs hyperkalaemia vs paced rhythm
+Short_PR,16838951000119100,R94.31,General,ECG finding — WPW pre-excitation vs accelerated AV conduction vs LGL

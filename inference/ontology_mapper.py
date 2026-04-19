@@ -309,7 +309,10 @@ class OntologyMapper:
 
         with open(path, newline="", encoding="utf-8") as f:
             for row in csv.DictReader(f):
-                if row.get("rule_type", "").strip() != "mutual_exclusion":
+                rule_id = (row.get("rule_id") or "").strip()
+                if not rule_id or rule_id.startswith("#"):
+                    continue
+                if (row.get("rule_type") or "").strip() != "mutual_exclusion":
                     continue
                 related_raw = row.get("related_labels", "")
                 related = [r.strip() for r in related_raw.split("|") if r.strip()]

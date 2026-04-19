@@ -40,12 +40,32 @@ logger = logging.getLogger("ECGenius")
 # ── Defaults ──────────────────────────────────────────────────────────────────
 
 MOCK_MODEL_OUTPUT = {
-    "STEMI":        0.74,
-    "AF":           0.42,
-    "NSR":          0.61,
-    "ST_Elevation": 0.80,
-    "LVH":          0.38,
-    "VF":           0.19,
+    # ── Ischemia ──────────────────────────────────────────────
+    "STEMI":            0.74,
+    "NSTEMI":           0.31,
+    "Unstable_Angina":  0.18,
+    # ── Rhythm ────────────────────────────────────────────────
+    "AF":               0.42,
+    "NSR":              0.61,
+    "VF":               0.19,
+    "VT":               0.14,
+    "SVT":              0.22,
+    "Atrial_Flutter":   0.11,
+    "Sinus_Tachycardia":0.28,
+    # ── Structural ────────────────────────────────────────────
+    "LVH":              0.38,
+    "LVH_Strain":       0.29,
+    "Pericarditis":     0.12,
+    "Long_QT":          0.10,
+    # ── Conduction ────────────────────────────────────────────
+    "LBBB":             0.24,
+    "RBBB":             0.15,
+    "Heart_Block_1st":  0.17,
+    # ── ECG pattern findings (trigger nodes for derived rules) ─
+    "ST_Elevation":     0.80,
+    "ST_Depression":    0.35,
+    "Irregular_RR":     0.55,
+    "Wide_QRS":         0.30,
 }
 
 DEFAULT_PATIENT = {
@@ -304,13 +324,13 @@ def run(
     active     = [f for f in fused if not f.is_suppressed]
     suppressed = [f for f in fused if f.is_suppressed]
 
-    CONF_ICON = {"CONFIRMED": "✓✓", "PROBABLE": "✓ ", "POSSIBLE": "? ", "INCIDENTAL": "~ "}
+    CONF_ICON = {"CONFIRMED": "**", "PROBABLE": "* ", "POSSIBLE": "? ", "INCIDENTAL": "~ "}
 
     for i, f in enumerate(active, 1):
         print(f"\n  {i}. {CONF_ICON.get(f.confidence_label,'  ')} "
               f"{f.label_name} ({f.label_id})")
         print(f"       Score:      {f.score_final:.3f}  [{f.confidence_label}]")
-        print(f"       Tier:       {f.tier}  →  {f.default_action}")
+        print(f"       Tier:       {f.tier}  ->  {f.default_action}")
         print(f"       Components: AI={f.pai:.3f}  "
               f"Symptoms={f.s_symptom:.3f}  "
               f"Risk={f.s_risk:.3f}  "
@@ -360,8 +380,8 @@ def _header(text: str) -> None:
 
 def _print_probabilities(model_output: dict) -> None:
     for label, prob in sorted(model_output.items(), key=lambda x: -x[1]):
-        bar = "█" * int(prob * 25)
-        print(f"  {label:16s}  {prob:.3f}  {bar}")
+        bar = "#" * int(prob * 25)
+        print(f"  {label:20s}  {prob:.3f}  {bar}")
 
 
 # ── CLI ───────────────────────────────────────────────────────────────────────
