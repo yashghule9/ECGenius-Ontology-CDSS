@@ -242,19 +242,19 @@ def _handle_derived(ctx: RuleContext, rule: RuleRow) -> None:
         return
 
     if rule.action == "add_label":
-        # Find the target derived label (usually primary_label IS the derived label
-        # or it may be listed in related_labels[0] depending on your CSV structure)
         derived_id = rule.related_labels[0] if rule.related_labels else rule.primary_label
         existing = ctx.get(derived_id)
 
         if existing:
-            # Already predicted — boost its score delta (handled in decision_fusion)
-            existing.score += rule.delta
+            # Already predicted by the model — NB fusion handles its posterior.
+            # No additive score boost: the ECG pattern evidence is already encoded
+            # in the model prior and the CPT likelihood ratios.
             ctx.derived_log.append(
-                f"[{rule.rule_id}] Boosted '{derived_id}' score by {rule.delta:+.2f} "
+                f"[{rule.rule_id}] '{derived_id}' confirmed by derived rule "
                 f"(trigger: '{rule.primary_label}' + symptoms {rule.required_symptoms})"
             )
-            logger.info("[%s] Derived boost: '%s' += %.2f", rule.rule_id, derived_id, rule.delta)
+            logger.info("[%s] Derived rule confirms existing '%s' — no score delta applied.",
+                        rule.rule_id, derived_id)
         else:
             # Not predicted by model — inject a synthetic OntologyResult via mapper
             mapper = getattr(ctx, '_mapper', None)

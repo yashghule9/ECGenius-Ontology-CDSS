@@ -26,3 +26,5 @@ ST_Depression,2,ECG pattern finding — evaluate for NSTEMI vs ischaemia vs drug
 Irregular_RR,2,ECG pattern finding — evaluate for AF or atrial flutter,Clinical assessment — rhythm strip,TRUE
 Wide_QRS,3,ECG pattern finding — evaluate for BBB or ventricular rhythm,Clinical assessment — full 12-lead review,TRUE
 Short_PR,3,ECG pattern finding — possible pre-excitation or WPW,Clinical assessment — electrophysiology referral if symptomatic,TRUE
+TWI,2,ECG pattern finding — T-wave inversion in precordial leads — evaluate for Wellens pattern or posterior ischaemia,Serial ECG — troponin — urgent cardiology if V2-V3 biphasic (Wellens Pattern A),TRUE
+PVC,3,ECG pattern finding — premature ventricular complex — assess frequency and structural disease context,Holter monitoring if frequent (>10%) — echo — assess for structural heart disease,TRUE

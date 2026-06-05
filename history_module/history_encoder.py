@@ -35,8 +35,12 @@ class HistoryRule:
     rule_id:  str
     label_id: str
     trigger:  str
-    action:   str
-    delta:    float
+    # Legacy additive schema
+    action:   str   = ""
+    delta:    float = 0.0
+    # NB CPT schema (p_given_disease / p_given_not_disease)
+    p_given_disease:     float = 0.0
+    p_given_not_disease: float = 0.0
 
 
 @dataclass
@@ -117,6 +121,7 @@ class HistoryEncoder:
         self._schema:   dict[str, dict]    = {}
         self._h_rules:  list[HistoryRule]  = []
         self._weights:  dict[str, float]   = {}
+        self._nb_mode:  bool               = False   # True when CPT schema detected
 
         self._load_all()
         logger.info(
@@ -174,34 +179,54 @@ class HistoryEncoder:
             if not triggered:
                 continue
 
-            weight = self._weights.get(rule.trigger, 1.0)
-
-            if rule.action == "add_score":
-                adj = rule.delta * weight
-                score_delta += adj
-                supporting.append(desc)
-                evidence.append(f"[{rule.rule_id}] {desc} -> score +{adj:.2f}")
-
-            elif rule.action == "reduce_score":
-                adj = abs(rule.delta) * weight
-                score_delta -= adj
-                contradicting.append(desc)
-                evidence.append(f"[{rule.rule_id}] {desc} -> score -{adj:.2f}")
-
-            elif rule.action == "reduce_tier":
-                steps = int(abs(rule.delta))
-                tier_delta += steps
-                contradicting.append(desc)
-                evidence.append(f"[{rule.rule_id}] {desc} -> tier +{steps}")
-
-            elif rule.action == "add_tier":
-                steps = int(abs(rule.delta))
-                tier_delta -= steps
-                supporting.append(desc)
-                evidence.append(f"[{rule.rule_id}] {desc} -> tier -{steps}")
-
+            if self._nb_mode:
+                # NB schema: score is computed by naive_bayes_fusion.
+                # Here we only track which features fired for XAI/explainability.
+                p_d  = max(rule.p_given_disease,     1e-6)
+                p_nd = max(rule.p_given_not_disease,  1e-6)
+                lr   = p_d / p_nd
+                if lr >= 1.0:
+                    supporting.append(desc)
+                    evidence.append(
+                        f"[{rule.rule_id}] {desc}: "
+                        f"LR={lr:.2f}  (p_d={p_d:.2f} / p_nd={p_nd:.2f})"
+                    )
+                else:
+                    contradicting.append(desc)
+                    evidence.append(
+                        f"[{rule.rule_id}] {desc}: "
+                        f"LR={lr:.2f}  (reduces posterior)"
+                    )
             else:
-                logger.warning("[%s] Unknown action '%s' — skipping.", rule.rule_id, rule.action)
+                # Legacy additive schema
+                weight = self._weights.get(rule.trigger, 1.0)
+
+                if rule.action == "add_score":
+                    adj = rule.delta * weight
+                    score_delta += adj
+                    supporting.append(desc)
+                    evidence.append(f"[{rule.rule_id}] {desc} -> score +{adj:.2f}")
+
+                elif rule.action == "reduce_score":
+                    adj = abs(rule.delta) * weight
+                    score_delta -= adj
+                    contradicting.append(desc)
+                    evidence.append(f"[{rule.rule_id}] {desc} -> score -{adj:.2f}")
+
+                elif rule.action == "reduce_tier":
+                    steps = int(abs(rule.delta))
+                    tier_delta += steps
+                    contradicting.append(desc)
+                    evidence.append(f"[{rule.rule_id}] {desc} -> tier +{steps}")
+
+                elif rule.action == "add_tier":
+                    steps = int(abs(rule.delta))
+                    tier_delta -= steps
+                    supporting.append(desc)
+                    evidence.append(f"[{rule.rule_id}] {desc} -> tier -{steps}")
+
+                else:
+                    logger.warning("[%s] Unknown action '%s' — skipping.", rule.rule_id, rule.action)
 
         # Clamp
         score_delta = max(-self.MAX_SCORE_DELTA, min(self.MAX_SCORE_DELTA, score_delta))
@@ -328,17 +353,35 @@ class HistoryEncoder:
             logger.warning("history_rules.csv not found at %s", path)
             return
         with open(path, newline="", encoding="utf-8") as f:
-            for row in csv.DictReader(f):
+            reader  = csv.DictReader(f)
+            fieldnames = reader.fieldnames or []
+            # Detect schema by column names
+            is_nb = "p_given_disease" in fieldnames and "p_given_not_disease" in fieldnames
+            self._nb_mode = is_nb
+            if is_nb:
+                logger.info("history_rules.csv: NB CPT schema detected.")
+            else:
+                logger.info("history_rules.csv: legacy additive schema detected.")
+            for row in reader:
                 rule_id_raw = (row.get("rule_id") or "").strip()
                 if not rule_id_raw or rule_id_raw.startswith("#"):
                     continue
-                self._h_rules.append(HistoryRule(
-                    rule_id=rule_id_raw,
-                    label_id=(row.get("label_id") or "").strip(),
-                    trigger=(row.get("trigger") or "").strip(),
-                    action=(row.get("action") or "").strip(),
-                    delta=float(row.get("delta") or 0),
-                ))
+                if is_nb:
+                    self._h_rules.append(HistoryRule(
+                        rule_id  = rule_id_raw,
+                        label_id = (row.get("label_id") or "").strip(),
+                        trigger  = (row.get("trigger")  or "").strip(),
+                        p_given_disease     = float(row.get("p_given_disease")     or 0.5),
+                        p_given_not_disease = float(row.get("p_given_not_disease") or 0.5),
+                    ))
+                else:
+                    self._h_rules.append(HistoryRule(
+                        rule_id  = rule_id_raw,
+                        label_id = (row.get("label_id") or "").strip(),
+                        trigger  = (row.get("trigger")  or "").strip(),
+                        action   = (row.get("action")   or "").strip(),
+                        delta    = float(row.get("delta") or 0),
+                    ))
 
     def _load_weights(self) -> None:
         path = self.dir / "symptom_weights.csv"
