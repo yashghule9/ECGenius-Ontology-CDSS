@@ -37,3 +37,5 @@ ST_Depression,ST_Depression_Pattern,ECG_Pattern,Pattern,ST segment depression de
 Irregular_RR,Irregular_RR_Pattern,ECG_Pattern,Pattern,Irregularly irregular R-R intervals — evaluate for AF or flutter,TRUE
 Wide_QRS,Wide_QRS_Pattern,ECG_Pattern,Pattern,QRS duration >120ms — evaluate for BBB or ventricular rhythm,TRUE
 Short_PR,Short_PR_Pattern,ECG_Pattern,Pattern,PR interval <120ms — possible pre-excitation (WPW),TRUE
+TWI,T_Wave_Inversion_Pattern,ECG_Pattern,Pattern,T-wave inversion in precordial leads — evaluate for ischaemia or Wellens pattern,TRUE
+PVC,Premature_Ventricular_Complex,ECG_Pattern,Pattern,Premature wide QRS beat of ventricular origin — evaluate for structural disease if frequent,TRUE

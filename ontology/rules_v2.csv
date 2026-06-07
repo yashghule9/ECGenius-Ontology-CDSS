@@ -1,0 +1,107 @@
+rule_id,rule_type,primary_label,related_labels,required_symptoms,action,delta
+# ── ECGenius Clinical Rules v2 ────────────────────────────────────────────────
+# 25 medically justified rules, compatible with rule_executor.py
+# Sources: AHA/ACC 2013 STEMI, 2019 AF, 2022 HF, 2017 VA, Wellens 1982,
+#          Sgarbossa 1996, de Winter 2008, Brugada 1991
+# Merge into ontology/rules.csv after cardiologist validation.
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ── ISCHEMIA / ACS RULES ─────────────────────────────────────────────────────
+
+# Sgarbossa criterion 1: Concordant ST elevation ≥1mm in LBBB → STEMI-equivalent
+# Reference: Sgarbossa et al., NEJM 1996
+V1,derived,LBBB,STEMI,chest_pain,add_label,0.40
+
+# Wellens Pattern A: Biphasic T-waves in V2-V3 → proximal LAD occlusion warning
+# Reference: Wellens et al., Circulation 1982
+V2,derived,TWI,NSTEMI,chest_pain,add_label,0.35
+
+# de Winter T-waves: ST depression + tall T-waves = STEMI-equivalent (anterior)
+# Reference: de Winter et al., NEJM 2008
+V3,derived,ST_Depression,STEMI,chest_pain,add_label,0.30
+
+# Reciprocal changes: ST depression in inferior leads during anterior STEMI
+# When model sees both ST_Elevation and ST_Depression simultaneously
+V4,derived,ST_Elevation,NSTEMI,,add_label,0.20
+
+# Posterior MI: ST depression in V1-V4 may represent posterior STEMI
+# Boost NSTEMI → STEMI when high Pai on ST_Depression without clear lateral elevation
+V5,downgrade,ST_Depression,,no_chest_pain,reduce_score,-0.12
+
+# Right ventricular MI: inferior STEMI + RV involvement (ST elevation in V4R)
+# STEMI with syncope (hypotension) → likely RV involvement, keep Tier-1
+V6,downgrade,STEMI,,syncope,reduce_tier,-1
+
+# Anterior STEMI with LBBB: Sgarbossa criterion — highest specificity
+V7,precedence,STEMI,LBBB,,override,0
+
+# ── ARRHYTHMIA RULES ─────────────────────────────────────────────────────────
+
+# Torsades de Pointes trigger: Long QT + palpitations → VT-equivalent risk
+# Clinically treat as VT until proven otherwise
+V8,derived,Long_QT,VT,palpitations,add_label,0.30
+
+# Wolff-Parkinson-White pattern: Short PR + delta wave → SVT mechanism
+# If SVT + wide QRS, consider pre-excitation before diagnosing VT
+V9,derived,SVT,Wide_QRS,,add_label,0.15
+
+# AF with aberrant conduction: Wide complex AF can mimic VT
+# Mutual exclusion: if AF pai > VT pai and wide QRS, keep AF as primary
+V10,mutual_exclusion,Arrhythmia,AF|VT|SVT,,keep_highest,0
+
+# Sinus bradycardia + chest pain → inferior MI with vagal response (Bezold-Jarisch)
+V11,derived,NSR,STEMI,chest_pain,add_label,0.20
+
+# High-degree AV block during inferior MI: vagal → 2nd or 3rd degree block
+# Boosts heart block derivation when STEMI + dizziness
+V12,derived,STEMI,Heart_Block_2nd_MobitzI,dizziness,add_label,0.25
+
+# Frequent PVCs (>10%) in setting of CAD → increased VT risk
+V13,derived,PVC,VT,chest_pain,add_label,0.20
+
+# SVT in young patient without structural disease: likely AVNRT or AVRT
+V14,downgrade,SVT,,young_age,reduce_tier,1
+
+# AF with rapid ventricular response + syncope → hemodynamically unstable
+V15,downgrade,AF,,syncope,reduce_tier,-1
+
+# ── STRUCTURAL / HYPERTROPHY RULES ───────────────────────────────────────────
+
+# LVH + Strain: lateral ST depression in LVH patient is strain, not ischemia
+# Reduces NSTEMI score when LVH is predominant finding
+V16,downgrade,NSTEMI,,no_chest_pain,reduce_score,-0.15
+
+# RBBB + right axis deviation: suggests RV strain / pulmonary hypertension
+# Boost RBBB score when combined with dyspnea
+V17,derived,RBBB,Ischemia,dyspnea,add_label,0.18
+
+# LBBB: New-onset LBBB in setting of HF → possible CRT indication
+# Boosts LVH + LBBB combination severity
+V18,derived,LBBB,LVH,,add_label,0.15
+
+# Dilated cardiomyopathy pattern: LBBB + LVH + dyspnea → heart failure
+V19,derived,LVH,LBBB,dyspnea,add_label,0.20
+
+# ── SAFETY / PRECEDENCE RULES ─────────────────────────────────────────────────
+
+# VF always overrides: if VF detected, cardiac arrest protocol takes priority
+# Already in rules.csv as R2a but adding explicit safety escalation
+V20,precedence,VF,NSR|AF|SVT|Sinus_Tachycardia,,override,0
+
+# Pulseless VT = VF-equivalent clinically → escalate treatment
+V21,derived,VT,VF,syncope,add_label,0.35
+
+# ── CONTEXT-BASED DOWNGRADE RULES ────────────────────────────────────────────
+
+# Young patient (<40) with STEMI without RF → consider coronary spasm / drug use
+V22,downgrade,STEMI,,young_age,reduce_score,-0.08
+
+# STEMI with no symptoms (incidental find) → likely pericarditis mimic
+V23,downgrade,STEMI,,asymptomatic,reduce_score,-0.20
+
+# NSTEMI with no risk factors + young: more likely demand ischemia (Type 2 MI)
+V24,downgrade,NSTEMI,,young_age,reduce_score,-0.10
+
+# Sinus tachycardia as primary rhythm in setting of pain → not primary arrhythmia
+# Reflects that ST is a response, not disease
+V25,downgrade,Sinus_Tachycardia,,chest_pain,reduce_score,-0.08

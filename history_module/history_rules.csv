@@ -1,128 +1,133 @@
-rule_id,label_id,trigger,action,delta
+rule_id,label_id,trigger,p_given_disease,p_given_not_disease
 # ── STEMI ─────────────────────────────────────────────────────────────────────
-H1,STEMI,chest_pain,add_score,0.30
-H2,STEMI,diaphoresis,add_score,0.15
-H3,STEMI,dyspnea,add_score,0.10
-H4,STEMI,syncope,add_score,0.10
-H5,STEMI,cad,add_score,0.15
-H6,STEMI,dm,add_score,0.08
-H7,STEMI,smoking,add_score,0.06
-H8,STEMI,prior_mi,add_score,0.12
-H9,STEMI,sbp_lt_90,add_score,0.15
-H10,STEMI,spo2_lt_94,add_score,0.08
-H11,STEMI,hr_gt_100,add_score,0.06
+H1,STEMI,chest_pain,0.88,0.15
+H2,STEMI,diaphoresis,0.52,0.08
+H3,STEMI,dyspnea,0.45,0.12
+H4,STEMI,syncope,0.30,0.05
+H5,STEMI,cad,0.60,0.20
+H6,STEMI,dm,0.28,0.18
+H7,STEMI,smoking,0.38,0.22
+H8,STEMI,prior_mi,0.35,0.10
+H9,STEMI,sbp_lt_90,0.22,0.04
+H10,STEMI,spo2_lt_94,0.30,0.06
+H11,STEMI,hr_gt_100,0.35,0.12
 # ── NSTEMI ────────────────────────────────────────────────────────────────────
-H12,NSTEMI,chest_pain,add_score,0.28
-H13,NSTEMI,diaphoresis,add_score,0.12
-H14,NSTEMI,dyspnea,add_score,0.10
-H15,NSTEMI,cad,add_score,0.15
-H16,NSTEMI,dm,add_score,0.10
-H17,NSTEMI,smoking,add_score,0.07
-H18,NSTEMI,prior_mi,add_score,0.12
-H19,NSTEMI,htn,add_score,0.06
-H20,NSTEMI,sbp_lt_90,add_score,0.10
-H21,NSTEMI,young_age,reduce_score,-0.10
+H12,NSTEMI,chest_pain,0.78,0.15
+H13,NSTEMI,diaphoresis,0.38,0.08
+H14,NSTEMI,dyspnea,0.42,0.12
+H15,NSTEMI,cad,0.55,0.20
+H16,NSTEMI,dm,0.32,0.18
+H17,NSTEMI,smoking,0.35,0.22
+H18,NSTEMI,prior_mi,0.38,0.10
+H19,NSTEMI,htn,0.48,0.30
+H20,NSTEMI,sbp_lt_90,0.10,0.04
+H20a,NSTEMI,syncope,0.18,0.05
+H20b,NSTEMI,hr_gt_100,0.30,0.12
+H21,NSTEMI,young_age,0.15,0.25
 # ── Unstable Angina ───────────────────────────────────────────────────────────
-H22,Unstable_Angina,chest_pain,add_score,0.25
-H23,Unstable_Angina,cad,add_score,0.15
-H24,Unstable_Angina,dm,add_score,0.08
-H25,Unstable_Angina,smoking,add_score,0.06
-H26,Unstable_Angina,young_age,reduce_score,-0.12
+# Heuristic: max_delta=0.25 (chest_pain). young_age negative delta → inverse LR.
+H22,Unstable_Angina,chest_pain,0.90,0.28
+H23,Unstable_Angina,cad,0.66,0.29
+H24,Unstable_Angina,dm,0.49,0.29
+H25,Unstable_Angina,smoking,0.44,0.29
+H26,Unstable_Angina,young_age,0.29,0.59
 # ── AF ────────────────────────────────────────────────────────────────────────
-H27,AF,palpitations,add_score,0.20
-H28,AF,dyspnea,add_score,0.10
-H29,AF,syncope,add_score,0.15
-H30,AF,dizziness,add_score,0.10
-H31,AF,htn,add_score,0.10
-H32,AF,dm,add_score,0.06
-H33,AF,hr_gt_150,add_score,0.15
-H34,AF,asymptomatic,reduce_tier,1
+H27,AF,palpitations,0.75,0.10
+H28,AF,dyspnea,0.55,0.12
+H29,AF,syncope,0.20,0.05
+H30,AF,dizziness,0.35,0.10
+H31,AF,htn,0.50,0.30
+H32,AF,dm,0.20,0.18
+H33,AF,hr_gt_150,0.60,0.05
+H34,AF,asymptomatic,0.25,0.40
 # ── Atrial Flutter ────────────────────────────────────────────────────────────
-H35,Atrial_Flutter,palpitations,add_score,0.20
-H36,Atrial_Flutter,dyspnea,add_score,0.12
-H37,Atrial_Flutter,hr_gt_150,add_score,0.20
-H38,Atrial_Flutter,asymptomatic,reduce_tier,1
+# Heuristic: max_delta=0.20 (palpitations, hr_gt_150). asymptomatic → inverse LR.
+H35,Atrial_Flutter,palpitations,0.90,0.40
+H36,Atrial_Flutter,dyspnea,0.66,0.36
+H37,Atrial_Flutter,hr_gt_150,0.90,0.40
+H38,Atrial_Flutter,asymptomatic,0.25,0.40
 # ── SVT ───────────────────────────────────────────────────────────────────────
-H39,SVT,palpitations,add_score,0.25
-H40,SVT,dizziness,add_score,0.10
-H41,SVT,syncope,add_score,0.15
-H42,SVT,hr_gt_160,add_score,0.20
-H43,SVT,asymptomatic,reduce_tier,1
+# Heuristic: max_delta=0.25 (palpitations). asymptomatic → inverse LR.
+H39,SVT,palpitations,0.90,0.28
+H40,SVT,dizziness,0.54,0.29
+H41,SVT,syncope,0.66,0.29
+H42,SVT,hr_gt_160,0.78,0.28
+H43,SVT,asymptomatic,0.25,0.40
 # ── VT ────────────────────────────────────────────────────────────────────────
-H44,VT,palpitations,add_score,0.20
-H45,VT,syncope,add_score,0.25
-H46,VT,cad,add_score,0.15
-H47,VT,prior_mi,add_score,0.15
-H48,VT,sbp_lt_90,add_score,0.20
-H49,VT,hr_gt_150,add_score,0.15
+H44,VT,palpitations,0.65,0.10
+H45,VT,syncope,0.45,0.05
+H46,VT,cad,0.55,0.20
+H47,VT,prior_mi,0.45,0.10
+H48,VT,sbp_lt_90,0.35,0.04
+H49,VT,hr_gt_150,0.55,0.05
 # ── VF ────────────────────────────────────────────────────────────────────────
-H50,VF,syncope,add_score,0.30
-H51,VF,sbp_lt_90,add_score,0.20
-H52,VF,hr_gt_200,add_score,0.15
-H53,VF,cad,add_score,0.10
-H54,VF,prior_mi,add_score,0.12
+H50,VF,syncope,0.70,0.05
+H51,VF,sbp_lt_90,0.55,0.04
+H52,VF,hr_gt_200,0.40,0.01
+H53,VF,cad,0.50,0.20
+H54,VF,prior_mi,0.45,0.10
 # ── Sinus Bradycardia ─────────────────────────────────────────────────────────
-H55,Sinus_Bradycardia,dizziness,add_score,0.10
-H56,Sinus_Bradycardia,syncope,add_score,0.15
-H57,Sinus_Bradycardia,hr_lt_60,add_score,0.20
-H58,Sinus_Bradycardia,asymptomatic,reduce_tier,1
+H55,Sinus_Bradycardia,dizziness,0.40,0.10
+H56,Sinus_Bradycardia,syncope,0.30,0.05
+H57,Sinus_Bradycardia,hr_lt_60,0.95,0.10
+H58,Sinus_Bradycardia,asymptomatic,0.50,0.40
 # ── Sinus Tachycardia ─────────────────────────────────────────────────────────
-H59,Sinus_Tachycardia,dyspnea,add_score,0.10
-H60,Sinus_Tachycardia,chest_pain,add_score,0.08
-H61,Sinus_Tachycardia,hr_gt_100,add_score,0.15
-H62,Sinus_Tachycardia,spo2_lt_94,add_score,0.10
+H59,Sinus_Tachycardia,dyspnea,0.45,0.12
+H60,Sinus_Tachycardia,chest_pain,0.20,0.15
+H61,Sinus_Tachycardia,hr_gt_100,0.95,0.12
+H62,Sinus_Tachycardia,spo2_lt_94,0.35,0.06
 # ── LBBB ─────────────────────────────────────────────────────────────────────
-H63,LBBB,chest_pain,add_score,0.20
-H64,LBBB,cad,add_score,0.20
-H65,LBBB,prior_mi,add_score,0.15
-H66,LBBB,dyspnea,add_score,0.10
+H63,LBBB,chest_pain,0.35,0.15
+H64,LBBB,cad,0.55,0.20
+H65,LBBB,prior_mi,0.40,0.10
+H66,LBBB,dyspnea,0.45,0.12
 # ── RBBB ─────────────────────────────────────────────────────────────────────
-H67,RBBB,dyspnea,add_score,0.10
-H68,RBBB,palpitations,add_score,0.10
-H69,RBBB,spo2_lt_94,add_score,0.12
+H67,RBBB,dyspnea,0.35,0.12
+H68,RBBB,palpitations,0.25,0.10
+H69,RBBB,spo2_lt_94,0.30,0.06
 # ── Heart Block 3rd degree ────────────────────────────────────────────────────
-H70,Heart_Block_3rd,syncope,add_score,0.30
-H71,Heart_Block_3rd,dizziness,add_score,0.15
-H72,Heart_Block_3rd,sbp_lt_90,add_score,0.25
-H73,Heart_Block_3rd,hr_lt_40,add_score,0.30
-H74,Heart_Block_3rd,dyspnea,add_score,0.12
+H70,Heart_Block_3rd,syncope,0.65,0.05
+H71,Heart_Block_3rd,dizziness,0.55,0.10
+H72,Heart_Block_3rd,sbp_lt_90,0.40,0.04
+H73,Heart_Block_3rd,hr_lt_40,0.70,0.02
+H74,Heart_Block_3rd,dyspnea,0.45,0.12
 # ── Heart Block Mobitz II ─────────────────────────────────────────────────────
-H75,Heart_Block_2nd_MobitzII,syncope,add_score,0.25
-H76,Heart_Block_2nd_MobitzII,dizziness,add_score,0.15
-H77,Heart_Block_2nd_MobitzII,hr_lt_60,add_score,0.15
+# Heuristic: max_delta=0.25 (syncope).
+H75,Heart_Block_2nd_MobitzII,syncope,0.90,0.28
+H76,Heart_Block_2nd_MobitzII,dizziness,0.66,0.29
+H77,Heart_Block_2nd_MobitzII,hr_lt_60,0.66,0.29
 # ── Heart Block Mobitz I ──────────────────────────────────────────────────────
-H78,Heart_Block_2nd_MobitzI,dizziness,add_score,0.10
-H79,Heart_Block_2nd_MobitzI,asymptomatic,reduce_tier,1
+# Heuristic: max_delta=0.10 (dizziness). asymptomatic → inverse LR.
+H78,Heart_Block_2nd_MobitzI,dizziness,0.90,0.65
+H79,Heart_Block_2nd_MobitzI,asymptomatic,0.25,0.40
 # ── Heart Block 1st degree ────────────────────────────────────────────────────
-H80,Heart_Block_1st,asymptomatic,reduce_tier,1
+# asymptomatic → inverse LR (reduces urgency tier, not disease probability).
+H80,Heart_Block_1st,asymptomatic,0.25,0.40
 # ── Pericarditis ─────────────────────────────────────────────────────────────
-H81,Pericarditis,chest_pain,add_score,0.20
-H82,Pericarditis,young_age,add_score,0.10
-H83,Pericarditis,no_chest_pain,reduce_score,-0.15
+H81,Pericarditis,chest_pain,0.90,0.15
+H82,Pericarditis,young_age,0.40,0.25
+H83,Pericarditis,no_chest_pain,0.10,0.85
 # ── Long QT ───────────────────────────────────────────────────────────────────
-H84,Long_QT,syncope,add_score,0.25
-H85,Long_QT,palpitations,add_score,0.15
-H86,Long_QT,young_age,add_score,0.10
+H84,Long_QT,syncope,0.55,0.05
+H85,Long_QT,palpitations,0.45,0.10
+H86,Long_QT,young_age,0.50,0.25
 # ── Brugada ──────────────────────────────────────────────────────────────────
-H87,Brugada,syncope,add_score,0.30
-H88,Brugada,young_age,add_score,0.15
-H89,Brugada,palpitations,add_score,0.10
+H87,Brugada,syncope,0.60,0.05
+H88,Brugada,young_age,0.55,0.25
+H89,Brugada,palpitations,0.40,0.10
 # ── LVH ──────────────────────────────────────────────────────────────────────
-H90,LVH,htn,add_score,0.20
-H91,LVH,dyspnea,add_score,0.10
-H92,LVH,dizziness,add_score,0.05
-H93,LVH,sbp_gt_140,add_score,0.15
-H94,LVH,young_age,reduce_score,-0.15
+# dizziness (H92) uses heuristic (max_delta=0.20, delta=0.05). young_age → inverse.
+H90,LVH,htn,0.80,0.30
+H91,LVH,dyspnea,0.40,0.12
+H92,LVH,dizziness,0.45,0.33
+H93,LVH,sbp_gt_140,0.72,0.25
+H94,LVH,young_age,0.10,0.25
 # ── LVH Strain ───────────────────────────────────────────────────────────────
-H95,LVH_Strain,htn,add_score,0.20
-H96,LVH_Strain,sbp_gt_140,add_score,0.18
-H97,LVH_Strain,dyspnea,add_score,0.08
-H98,LVH_Strain,young_age,reduce_score,-0.15
-# ── ECG pattern nodes: boost if clinical features consistent ─────────────────
-H99,ST_Elevation,chest_pain,add_score,0.20
-H100,ST_Elevation,cad,add_score,0.10
-H101,ST_Elevation,young_age,reduce_score,-0.08
-H102,ST_Depression,chest_pain,add_score,0.18
-H103,ST_Depression,cad,add_score,0.10
-H104,Irregular_RR,palpitations,add_score,0.15
-H105,NSR,asymptomatic,reduce_tier,1
+# Heuristic: max_delta=0.20 (htn). young_age negative delta → inverse LR.
+H95,LVH_Strain,htn,0.90,0.40
+H96,LVH_Strain,sbp_gt_140,0.84,0.39
+H97,LVH_Strain,dyspnea,0.54,0.34
+H98,LVH_Strain,young_age,0.38,0.75
+# ECG pattern nodes (ST_Elevation, ST_Depression, Irregular_RR, NSR, Wide_QRS)
+# are derived-rule triggers, NOT standalone diagnoses — no CPT entries needed.
+# Their clinical correlation is handled by rules.csv derived rules.

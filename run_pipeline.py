@@ -41,38 +41,19 @@ logger = logging.getLogger("ECGenius")
 
 MOCK_MODEL_OUTPUT = {
     # ── Ischemia ──────────────────────────────────────────────
-    "STEMI":            0.74,
-    "NSTEMI":           0.31,
-    "Unstable_Angina":  0.18,
-    # ── Rhythm ────────────────────────────────────────────────
-    "AF":               0.42,
-    "NSR":              0.61,
-    "VF":               0.19,
-    "VT":               0.14,
-    "SVT":              0.22,
-    "Atrial_Flutter":   0.11,
-    "Sinus_Tachycardia":0.28,
-    # ── Structural ────────────────────────────────────────────
-    "LVH":              0.38,
-    "LVH_Strain":       0.29,
-    "Pericarditis":     0.12,
-    "Long_QT":          0.10,
-    # ── Conduction ────────────────────────────────────────────
-    "LBBB":             0.24,
-    "RBBB":             0.15,
-    "Heart_Block_1st":  0.17,
-    # ── ECG pattern findings (trigger nodes for derived rules) ─
-    "ST_Elevation":     0.80,
-    "ST_Depression":    0.35,
-    "Irregular_RR":     0.55,
-    "Wide_QRS":         0.30,
+   "Sinus_Bradycardia": 0.6667,
+    "ST_T_Change":       0.6553,
+    "T_Wave_Change":     0.3333,
+    "QT_Interval_Ext":   0.3333,
+    "ST_Elevation":      0.3333,
+    
 }
 
 DEFAULT_PATIENT = {
     "symptoms": {
         "chest_pain":   True,
         "palpitations": False,
-        "syncope":      True,
+        "syncope":      False,
         "dizziness":    False,
         "dyspnea":      True,
         "diaphoresis":  True,
@@ -82,13 +63,13 @@ DEFAULT_PATIENT = {
         "dm":        False,
         "cad":       True,
         "young_age": False,
-        "smoking":   True,
+        "smoking":   False,
         "prior_mi":  False,
     },
     "vitals": {
-        "sbp":  88,
-        "hr":   102,
-        "spo2": 94,
+        "sbp": 120,
+        "hr": 58,      # Bradycardia from ECG
+        "spo2": 97,
     },
 }
 
@@ -239,30 +220,52 @@ def run(
                 print(f"    {ev}")
 
     # ── Step 5: Decision fusion + explainability ───────────────────────────
-    _header("5/5  Decision fusion")
-    from inference.decision_fusion import DecisionFusion
+    _header("5/5  Decision fusion (Naive Bayes)")
+    import pandas as pd
+    from inference.decision_fusion import DecisionFusion, _build_patient_evidence
 
-    # Inject history delta scores directly into patient dict
-    # so decision_fusion.EvidenceScorer picks them up even if it
-    # recomputes — avoids double-counting by capping contributions
-    patient_with_deltas = dict(patient)
-    patient_with_deltas['_history_deltas'] = {
-        lid: delta.score_delta for lid, delta in history_deltas.items()
+    # Load CPT table (history_rules.csv) — single load per pipeline run
+    _cpt_path = Path(history_dir) / "history_rules.csv"
+    cpt_df = pd.read_csv(str(_cpt_path), comment="#") if _cpt_path.exists() else None
+    if cpt_df is None:
+        logger.warning("history_rules.csv not found at %s — NB fusion disabled.", _cpt_path)
+
+    # Build patient_evidence dict from structured patient data
+    patient_evidence = {
+        "chest_pain":    patient.get("symptoms",     {}).get("chest_pain",   False),
+        "diaphoresis":   patient.get("symptoms",     {}).get("diaphoresis",  False),
+        "dyspnea":       patient.get("symptoms",     {}).get("dyspnea",      False),
+        "syncope":       patient.get("symptoms",     {}).get("syncope",      False),
+        "palpitations":  patient.get("symptoms",     {}).get("palpitations", False),
+        "dizziness":     patient.get("symptoms",     {}).get("dizziness",    False),
+        "cad":           patient.get("risk_factors", {}).get("cad",          False),
+        "dm":            patient.get("risk_factors", {}).get("dm",           False),
+        "smoking":       patient.get("risk_factors", {}).get("smoking",      False),
+        "htn":           patient.get("risk_factors", {}).get("htn",          False),
+        "prior_mi":      patient.get("risk_factors", {}).get("prior_mi",     False),
+        "young_age":     patient.get("risk_factors", {}).get("young_age",    False),
+        "asymptomatic":  not any(bool(v) for v in
+                             patient.get("symptoms", {}).values()),
+        "sbp_lt_90":     patient.get("vitals", {}).get("sbp", 120) < 90,
+        "sbp_gt_140":    patient.get("vitals", {}).get("sbp", 120) > 140,
+        "hr_lt_40":      patient.get("vitals", {}).get("hr",  75)  < 40,
+        "hr_lt_60":      patient.get("vitals", {}).get("hr",  75)  < 60,
+        "hr_gt_100":     patient.get("vitals", {}).get("hr",  75)  > 100,
+        "hr_gt_150":     patient.get("vitals", {}).get("hr",  75)  > 150,
+        "hr_gt_160":     patient.get("vitals", {}).get("hr",  75)  > 160,
+        "hr_gt_200":     patient.get("vitals", {}).get("hr",  75)  > 200,
+        "spo2_lt_94":    patient.get("vitals", {}).get("spo2", 98) < 94,
+        "no_chest_pain": not patient.get("symptoms", {}).get("chest_pain", False),
     }
 
-    # Try passing history_deltas if fuse() accepts it, else fall back
-    import inspect as _i
-    _fuse_params = list(_i.signature(DecisionFusion.fuse).parameters.keys())
-    if 'history_deltas' in _fuse_params:
-        fused_raw = DecisionFusion().fuse(results, history_deltas, derived_log, patient)
-    else:
-        # Local decision_fusion.py uses EvidenceScorer internally
-        # Patch: pre-apply history deltas to result.score so fusion sees them
-        _delta_map = {lid: d.score_delta for lid, d in history_deltas.items()}
-        for r in results:
-            if r.label_id in _delta_map:
-                r.score = r.score + _delta_map[r.label_id]
-        fused_raw = DecisionFusion().fuse(results, patient, derived_log)
+    fused_raw = DecisionFusion().fuse(
+        ontology_results = results,
+        history_deltas   = history_deltas,
+        derived_log      = derived_log,
+        patient          = patient,
+        cpt_table        = cpt_df,
+        patient_evidence = patient_evidence,
+    )
 
     # Unwrap FusionOutput object (your local decision_fusion.py returns this)
     if hasattr(fused_raw, 'results'):
@@ -313,7 +316,7 @@ def run(
             payload["suppressed"].append(entry)
         else:
             payload["differential"].append(entry)
-            if f.tier == 1:
+            if f.tier == 1 and f.confidence_label in ("CONFIRMED", "PROBABLE"):
                 payload["critical_alerts"].append(entry)
     if payload["differential"]:
         payload["primary_diagnosis"] = payload["differential"][0]
@@ -331,10 +334,16 @@ def run(
               f"{f.label_name} ({f.label_id})")
         print(f"       Score:      {f.score_final:.3f}  [{f.confidence_label}]")
         print(f"       Tier:       {f.tier}  ->  {f.default_action}")
-        print(f"       Components: AI={f.pai:.3f}  "
-              f"Symptoms={f.s_symptom:.3f}  "
-              f"Risk={f.s_risk:.3f}  "
-              f"Rules={f.s_rule:.3f}")
+        if f.nb_breakdown:
+            bd = f.nb_breakdown
+            print(f"       NB:         prior={bd.get('prior',0):.4f}  "
+                  f"log_ll={bd.get('log_likelihood',0):.4f}  "
+                  f"posterior={f.score_final:.4f}")
+        else:
+            print(f"       Components: AI={f.pai:.3f}  "
+                  f"Symptoms={f.s_symptom:.3f}  "
+                  f"Risk={f.s_risk:.3f}  "
+                  f"Rules={f.s_rule:.3f}")
         if f.snomed_ct:
             print(f"       SNOMED-CT:  {f.snomed_ct}  |  ICD-10: {f.icd10}")
         if f.aha_guideline:
@@ -348,7 +357,25 @@ def run(
     if suppressed:
         print(f"\n  --- Suppressed (transparency) ---")
         for f in suppressed:
-            print(f"  {f.label_id:16s}  s_ai={f.s_ai:.3f}  score={f.score_final:.3f}")
+            print(f"  {f.label_id:16s}  pai={f.pai:.3f}  posterior={f.score_final:.4f}")
+
+    # ── NB calculation breakdown table ────────────────────────────────────────
+    _print_nb_table(active, suppressed)
+
+    # ── History evidence per label ─────────────────────────────────────────
+    has_evidence = any(
+        getattr(history_deltas.get(f.label_id, None), 'evidence', None)
+        for f in active
+    )
+    if has_evidence:
+        print("\n  --- Patient Evidence (from history_encoder) ------------------")
+        for f in active:
+            delta = history_deltas.get(f.label_id)
+            if not delta or not delta.evidence:
+                continue
+            print(f"\n  {f.label_id}:")
+            for ev in delta.evidence:
+                print(f"    {ev}")
 
     if payload.get("critical_alerts"):
         print()
@@ -382,6 +409,46 @@ def _print_probabilities(model_output: dict) -> None:
     for label, prob in sorted(model_output.items(), key=lambda x: -x[1]):
         bar = "#" * int(prob * 25)
         print(f"  {label:20s}  {prob:.3f}  {bar}")
+
+def _print_nb_table(active: list, suppressed: list) -> None:
+    """Print the full Naive Bayes calculation breakdown table."""
+    all_with_nb = [r for r in active + suppressed if r.nb_breakdown]
+    if not all_with_nb:
+        return
+
+    print("\n  --- Naive Bayes Calculation Breakdown ----------------------------")
+    header = (f"  {'Label':22s}  {'Prior':>7s}  {'log(LR)':>8s}  "
+              f"{'Unnorm':>12s}  {'Posterior':>10s}  Tier")
+    print(header)
+    print("  " + "-" * (len(header) - 2))
+
+    for r in sorted(active + suppressed, key=lambda x: -x.score_final):
+        bd = r.nb_breakdown
+        if not bd:
+            continue
+        prior      = bd.get("prior", r.pai)
+        log_ll     = bd.get("log_likelihood", 0.0)
+        unnorm     = bd.get("unnorm_posterior", 0.0)
+        posterior  = r.score_final
+        tier_label = bd.get("tier", r.confidence_label)
+        tag = " [suppressed]" if r.is_suppressed else ""
+        print(
+            f"  {r.label_id:22s}  {prior:7.4f}  {log_ll:8.4f}  "
+            f"{unnorm:12.3e}  {posterior:10.6f}  {tier_label}{tag}"
+        )
+
+    # Per-disease evidence terms
+    print("\n  --- Evidence Likelihood Ratios -----------------------------------")
+    for r in active:
+        bd = r.nb_breakdown
+        if not bd or not bd.get("evidence_terms"):
+            continue
+        print(f"\n  {r.label_id}:")
+        for (feat, p_d, p_nd, lr_log) in bd.get("evidence_terms", []):
+            lr    = p_d / max(p_nd, 1e-9)
+            arrow = "+" if lr_log > 0 else "-"
+            print(f"    [{arrow}] {feat:20s}  p_d={p_d:.2f}  p_nd={p_nd:.2f}  "
+                  f"LR={lr:.2f}  log(LR)={lr_log:+.3f}")
 
 
 # ── CLI ───────────────────────────────────────────────────────────────────────

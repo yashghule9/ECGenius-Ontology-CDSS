@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(python run_pipeline.py --mock)"
+      "Bash(python run_pipeline.py --mock)",
+      "Bash(python3 -c \" import json with open\\('c:/Users/physi/ECGenius-Ontology-CDSS/59d44cec-f41f-4c1a-82d5-06827db1458a.jsonl', 'r', encoding='utf-8'\\) as f: lines = f.readlines\\(\\) print\\(f'Total lines: {len\\(lines\\)}'\\) for i, line in enumerate\\(lines\\): try: obj = json.loads\\(line\\) t = obj.get\\('type',''\\) if t in ['human','assistant','summary','ai-title','last-prompt']: print\\(f'Line {i}: type={t}'\\) except: pass \")"
     ]
   }
 }

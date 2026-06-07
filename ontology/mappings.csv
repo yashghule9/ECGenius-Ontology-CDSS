@@ -26,3 +26,5 @@ ST_Depression,429559004,R94.31,General,ECG finding — NSTEMI vs digoxin effect 
 Irregular_RR,7536003,R00.8,General,ECG finding — AF vs atrial flutter with variable block vs frequent ectopics
 Wide_QRS,164946000,R94.31,General,ECG finding — LBBB vs RBBB vs VT vs hyperkalaemia vs paced rhythm
 Short_PR,16838951000119100,R94.31,General,ECG finding — WPW pre-excitation vs accelerated AV conduction vs LGL
+TWI,251200008,R94.31,General,Wellens Pattern A (biphasic V2-V3) = proximal LAD occlusion warning — urgent troponin
+PVC,413996008,I49.3,General,Frequent PVCs (>10%) in CAD context increase VT risk — structural disease workup

@@ -1,0 +1,2102 @@
+{
+  "n_records": 20,
+  "n_ecg_only": 4,
+  "n_errors": 0,
+  "records": [
+    {
+      "record_id": "MOCK00001",
+      "error": null,
+      "top_diagnosis": {
+        "label_id": "STEMI",
+        "score_final": 0.7872,
+        "confidence_label": "PROBABLE",
+        "tier": 1
+      },
+      "differential": [
+        {
+          "rank": 1,
+          "label_id": "STEMI",
+          "label_name": "ST_Elevation_MI",
+          "pai": 0.8409,
+          "score_final": 0.7872,
+          "s_ai": 0.4205,
+          "s_symptom": 0.2667,
+          "s_risk": 0.1,
+          "s_rule": 0.0,
+          "confidence_label": "PROBABLE",
+          "tier": 1,
+          "is_tier1": true,
+          "default_action": "Immediate PCI referral \u2014 door-to-balloon <90 min",
+          "supporting": [
+            "chest pain",
+            "diaphoresis",
+            "cad",
+            "sbp lt 90",
+            "spo2 lt 94",
+            "hr gt 100"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 2,
+          "label_id": "NSTEMI",
+          "label_name": "Non_ST_Elevation_MI",
+          "pai": 0.2105,
+          "score_final": 0.4053,
+          "s_ai": 0.1053,
+          "s_symptom": 0.2,
+          "s_risk": 0.1,
+          "s_rule": 0.0,
+          "confidence_label": "POSSIBLE",
+          "tier": 1,
+          "is_tier1": true,
+          "default_action": "Immediate anticoagulation and urgent cardiology referral",
+          "supporting": [
+            "chest pain",
+            "diaphoresis",
+            "cad",
+            "htn",
+            "sbp lt 90"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 3,
+          "label_id": "VT",
+          "label_name": "Ventricular_Tachycardia",
+          "pai": 0.1182,
+          "score_final": 0.1591,
+          "s_ai": 0.0591,
+          "s_symptom": 0.0,
+          "s_risk": 0.1,
+          "s_rule": 0.0,
+          "confidence_label": "POSSIBLE",
+          "tier": 1,
+          "is_tier1": true,
+          "default_action": "Assess pulse \u2014 cardioversion if pulseless or haemodynamically unstable",
+          "supporting": [
+            "cad",
+            "sbp lt 90"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 4,
+          "label_id": "ST_Elevation",
+          "label_name": "ST_Elevation_Pattern",
+          "pai": 0.8154,
+          "score_final": 0.6577,
+          "s_ai": 0.4077,
+          "s_symptom": 0.15,
+          "s_risk": 0.1,
+          "s_rule": 0.0,
+          "confidence_label": "PROBABLE",
+          "tier": 2,
+          "is_tier1": false,
+          "default_action": "Urgent clinical assessment \u2014 do not act on ECG pattern alone",
+          "supporting": [
+            "chest pain",
+            "cad"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 5,
+          "label_id": "RBBB",
+          "label_name": "Right_Bundle_Branch_Block",
+          "pai": 0.1013,
+          "score_final": 0.1706,
+          "s_ai": 0.0506,
+          "s_symptom": 0.084,
+          "s_risk": 0.036,
+          "s_rule": 0.0,
+          "confidence_label": "INCIDENTAL",
+          "tier": 3,
+          "is_tier1": false,
+          "default_action": "Outpatient cardiology review \u2014 evaluate for underlying cause",
+          "supporting": [
+            "spo2 lt 94"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 6,
+          "label_id": "NSR",
+          "label_name": "Normal_Sinus_Rhythm",
+          "pai": 0.1341,
+          "score_final": 0.067,
+          "s_ai": 0.067,
+          "s_symptom": 0.0,
+          "s_risk": 0.0,
+          "s_rule": 0.0,
+          "confidence_label": "INCIDENTAL",
+          "tier": 3,
+          "is_tier1": false,
+          "default_action": "No action required",
+          "supporting": [],
+          "contradicting": [],
+          "is_suppressed": false
+        }
+      ],
+      "suppressed": [],
+      "critical_alerts": [
+        {
+          "label_id": "STEMI",
+          "score_final": 0.7872,
+          "confidence_label": "PROBABLE"
+        }
+      ],
+      "derived_log": [],
+      "has_history": true,
+      "n_symptoms": 2,
+      "n_risk_factors": 2,
+      "n_vitals": 3
+    },
+    {
+      "record_id": "MOCK00002",
+      "error": null,
+      "top_diagnosis": {
+        "label_id": "VT",
+        "score_final": 0.2551,
+        "confidence_label": "POSSIBLE",
+        "tier": 1
+      },
+      "differential": [
+        {
+          "rank": 1,
+          "label_id": "VT",
+          "label_name": "Ventricular_Tachycardia",
+          "pai": 0.1102,
+          "score_final": 0.2551,
+          "s_ai": 0.0551,
+          "s_symptom": 0.2,
+          "s_risk": 0.0,
+          "s_rule": 0.0,
+          "confidence_label": "POSSIBLE",
+          "tier": 1,
+          "is_tier1": true,
+          "default_action": "Assess pulse \u2014 cardioversion if pulseless or haemodynamically unstable",
+          "supporting": [
+            "palpitations"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 2,
+          "label_id": "STEMI",
+          "label_name": "ST_Elevation_MI",
+          "pai": 0.1008,
+          "score_final": 0.2104,
+          "s_ai": 0.0504,
+          "s_symptom": 0.16,
+          "s_risk": 0.0,
+          "s_rule": 0.0,
+          "confidence_label": "POSSIBLE",
+          "tier": 1,
+          "is_tier1": true,
+          "default_action": "Immediate PCI referral \u2014 door-to-balloon <90 min",
+          "supporting": [
+            "dyspnea",
+            "hr gt 100"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 3,
+          "label_id": "AF",
+          "label_name": "Atrial_Fibrillation",
+          "pai": 0.8478,
+          "score_final": 0.7906,
+          "s_ai": 0.4239,
+          "s_symptom": 0.2667,
+          "s_risk": 0.1,
+          "s_rule": 0.0,
+          "confidence_label": "PROBABLE",
+          "tier": 2,
+          "is_tier1": false,
+          "default_action": "Rate or rhythm control \u2014 CHA2DS2-VASc anticoagulation assessment",
+          "supporting": [
+            "palpitations",
+            "dyspnea",
+            "htn"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        }
+      ],
+      "suppressed": [],
+      "critical_alerts": [],
+      "derived_log": [],
+      "has_history": true,
+      "n_symptoms": 2,
+      "n_risk_factors": 1,
+      "n_vitals": 1
+    },
+    {
+      "record_id": "MOCK00003",
+      "error": null,
+      "top_diagnosis": {
+        "label_id": "ST_Depression",
+        "score_final": 0.0534,
+        "confidence_label": "INCIDENTAL",
+        "tier": 2
+      },
+      "differential": [
+        {
+          "rank": 1,
+          "label_id": "ST_Depression",
+          "label_name": "ST_Depression_Pattern",
+          "pai": 0.1068,
+          "score_final": 0.0534,
+          "s_ai": 0.0534,
+          "s_symptom": 0.0,
+          "s_risk": 0.0,
+          "s_rule": 0.0,
+          "confidence_label": "INCIDENTAL",
+          "tier": 2,
+          "is_tier1": false,
+          "default_action": "Clinical assessment \u2014 serial ECG \u2014 troponin",
+          "supporting": [],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 2,
+          "label_id": "NSR",
+          "label_name": "Normal_Sinus_Rhythm",
+          "pai": 0.9376,
+          "score_final": 0.4688,
+          "s_ai": 0.4688,
+          "s_symptom": 0.0,
+          "s_risk": 0.0,
+          "s_rule": 0.0,
+          "confidence_label": "POSSIBLE",
+          "tier": 3,
+          "is_tier1": false,
+          "default_action": "No action required",
+          "supporting": [],
+          "contradicting": [
+            "patient is asymptomatic"
+          ],
+          "is_suppressed": false
+        }
+      ],
+      "suppressed": [],
+      "critical_alerts": [],
+      "derived_log": [],
+      "has_history": false,
+      "n_symptoms": 0,
+      "n_risk_factors": 0,
+      "n_vitals": 0
+    },
+    {
+      "record_id": "MOCK00004",
+      "error": null,
+      "top_diagnosis": {
+        "label_id": "VT",
+        "score_final": 0.7978,
+        "confidence_label": "PROBABLE",
+        "tier": 1
+      },
+      "differential": [
+        {
+          "rank": 1,
+          "label_id": "VT",
+          "label_name": "Ventricular_Tachycardia",
+          "pai": 0.8621,
+          "score_final": 0.7978,
+          "s_ai": 0.4311,
+          "s_symptom": 0.2667,
+          "s_risk": 0.1,
+          "s_rule": 0.0,
+          "confidence_label": "PROBABLE",
+          "tier": 1,
+          "is_tier1": true,
+          "default_action": "Assess pulse \u2014 cardioversion if pulseless or haemodynamically unstable",
+          "supporting": [
+            "palpitations",
+            "syncope",
+            "prior mi",
+            "sbp lt 90",
+            "hr gt 150"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 2,
+          "label_id": "VF",
+          "label_name": "Ventricular_Fibrillation",
+          "pai": 0.259,
+          "score_final": 0.4295,
+          "s_ai": 0.1295,
+          "s_symptom": 0.2,
+          "s_risk": 0.1,
+          "s_rule": 0.0,
+          "confidence_label": "POSSIBLE",
+          "tier": 1,
+          "is_tier1": true,
+          "default_action": "Start ACLS \u2014 immediate defibrillation",
+          "supporting": [
+            "syncope",
+            "sbp lt 90",
+            "prior mi"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        }
+      ],
+      "suppressed": [],
+      "critical_alerts": [
+        {
+          "label_id": "VT",
+          "score_final": 0.7978,
+          "confidence_label": "PROBABLE"
+        }
+      ],
+      "derived_log": [],
+      "has_history": true,
+      "n_symptoms": 2,
+      "n_risk_factors": 1,
+      "n_vitals": 2
+    },
+    {
+      "record_id": "MOCK00005",
+      "error": null,
+      "top_diagnosis": {
+        "label_id": "LBBB",
+        "score_final": 0.1617,
+        "confidence_label": "INCIDENTAL",
+        "tier": 2
+      },
+      "differential": [
+        {
+          "rank": 1,
+          "label_id": "LBBB",
+          "label_name": "Left_Bundle_Branch_Block",
+          "pai": 0.1234,
+          "score_final": 0.1617,
+          "s_ai": 0.0617,
+          "s_symptom": 0.1,
+          "s_risk": 0.0,
+          "s_rule": 0.0,
+          "confidence_label": "INCIDENTAL",
+          "tier": 2,
+          "is_tier1": false,
+          "default_action": "Urgent cardiology review \u2014 rule out ACS \u2014 serial ECG and troponin",
+          "supporting": [
+            "dyspnea"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 2,
+          "label_id": "LVH",
+          "label_name": "Left_Ventricular_Hypertrophy",
+          "pai": 0.7522,
+          "score_final": 0.6761,
+          "s_ai": 0.3761,
+          "s_symptom": 0.2,
+          "s_risk": 0.1,
+          "s_rule": 0.0,
+          "confidence_label": "PROBABLE",
+          "tier": 3,
+          "is_tier1": false,
+          "default_action": "Blood pressure control \u2014 outpatient cardiology evaluation",
+          "supporting": [
+            "htn",
+            "dyspnea",
+            "sbp gt 140"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 3,
+          "label_id": "NSR",
+          "label_name": "Normal_Sinus_Rhythm",
+          "pai": 0.5908,
+          "score_final": 0.2954,
+          "s_ai": 0.2954,
+          "s_symptom": 0.0,
+          "s_risk": 0.0,
+          "s_rule": 0.0,
+          "confidence_label": "INCIDENTAL",
+          "tier": 3,
+          "is_tier1": false,
+          "default_action": "No action required",
+          "supporting": [],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 4,
+          "label_id": "RBBB",
+          "label_name": "Right_Bundle_Branch_Block",
+          "pai": 0.1561,
+          "score_final": 0.178,
+          "s_ai": 0.078,
+          "s_symptom": 0.1,
+          "s_risk": 0.0,
+          "s_rule": 0.0,
+          "confidence_label": "INCIDENTAL",
+          "tier": 3,
+          "is_tier1": false,
+          "default_action": "Outpatient cardiology review \u2014 evaluate for underlying cause",
+          "supporting": [
+            "dyspnea"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        }
+      ],
+      "suppressed": [],
+      "critical_alerts": [],
+      "derived_log": [],
+      "has_history": true,
+      "n_symptoms": 1,
+      "n_risk_factors": 1,
+      "n_vitals": 1
+    },
+    {
+      "record_id": "MOCK00006",
+      "error": null,
+      "top_diagnosis": {
+        "label_id": "STEMI",
+        "score_final": 0.8109,
+        "confidence_label": "CONFIRMED",
+        "tier": 1
+      },
+      "differential": [
+        {
+          "rank": 1,
+          "label_id": "STEMI",
+          "label_name": "ST_Elevation_MI",
+          "pai": 0.8884,
+          "score_final": 0.8109,
+          "s_ai": 0.4442,
+          "s_symptom": 0.2667,
+          "s_risk": 0.1,
+          "s_rule": 0.0,
+          "confidence_label": "CONFIRMED",
+          "tier": 1,
+          "is_tier1": true,
+          "default_action": "Immediate PCI referral \u2014 door-to-balloon <90 min",
+          "supporting": [
+            "chest pain",
+            "diaphoresis",
+            "cad",
+            "sbp lt 90",
+            "spo2 lt 94",
+            "hr gt 100"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 2,
+          "label_id": "NSTEMI",
+          "label_name": "Non_ST_Elevation_MI",
+          "pai": 0.2239,
+          "score_final": 0.412,
+          "s_ai": 0.112,
+          "s_symptom": 0.2,
+          "s_risk": 0.1,
+          "s_rule": 0.0,
+          "confidence_label": "POSSIBLE",
+          "tier": 1,
+          "is_tier1": true,
+          "default_action": "Immediate anticoagulation and urgent cardiology referral",
+          "supporting": [
+            "chest pain",
+            "diaphoresis",
+            "cad",
+            "htn",
+            "sbp lt 90"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 3,
+          "label_id": "VT",
+          "label_name": "Ventricular_Tachycardia",
+          "pai": 0.1393,
+          "score_final": 0.1697,
+          "s_ai": 0.0697,
+          "s_symptom": 0.0,
+          "s_risk": 0.1,
+          "s_rule": 0.0,
+          "confidence_label": "POSSIBLE",
+          "tier": 1,
+          "is_tier1": true,
+          "default_action": "Assess pulse \u2014 cardioversion if pulseless or haemodynamically unstable",
+          "supporting": [
+            "cad",
+            "sbp lt 90"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 4,
+          "label_id": "ST_Elevation",
+          "label_name": "ST_Elevation_Pattern",
+          "pai": 0.8064,
+          "score_final": 0.6532,
+          "s_ai": 0.4032,
+          "s_symptom": 0.15,
+          "s_risk": 0.1,
+          "s_rule": 0.0,
+          "confidence_label": "PROBABLE",
+          "tier": 2,
+          "is_tier1": false,
+          "default_action": "Urgent clinical assessment \u2014 do not act on ECG pattern alone",
+          "supporting": [
+            "chest pain",
+            "cad"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 5,
+          "label_id": "SVT",
+          "label_name": "Supraventricular_Tachycardia",
+          "pai": 0.1281,
+          "score_final": 0.0641,
+          "s_ai": 0.0641,
+          "s_symptom": 0.0,
+          "s_risk": 0.0,
+          "s_rule": 0.0,
+          "confidence_label": "INCIDENTAL",
+          "tier": 2,
+          "is_tier1": false,
+          "default_action": "Vagal manoeuvres or adenosine \u2014 cardioversion if unstable",
+          "supporting": [],
+          "contradicting": [],
+          "is_suppressed": false
+        }
+      ],
+      "suppressed": [],
+      "critical_alerts": [
+        {
+          "label_id": "STEMI",
+          "score_final": 0.8109,
+          "confidence_label": "CONFIRMED"
+        }
+      ],
+      "derived_log": [],
+      "has_history": true,
+      "n_symptoms": 2,
+      "n_risk_factors": 2,
+      "n_vitals": 3
+    },
+    {
+      "record_id": "MOCK00007",
+      "error": null,
+      "top_diagnosis": {
+        "label_id": "NSTEMI",
+        "score_final": 0.2101,
+        "confidence_label": "POSSIBLE",
+        "tier": 1
+      },
+      "differential": [
+        {
+          "rank": 1,
+          "label_id": "NSTEMI",
+          "label_name": "Non_ST_Elevation_MI",
+          "pai": 0.1002,
+          "score_final": 0.2101,
+          "s_ai": 0.0501,
+          "s_symptom": 0.08,
+          "s_risk": 0.08,
+          "s_rule": 0.0,
+          "confidence_label": "POSSIBLE",
+          "tier": 1,
+          "is_tier1": true,
+          "default_action": "Immediate anticoagulation and urgent cardiology referral",
+          "supporting": [
+            "dyspnea",
+            "htn"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 2,
+          "label_id": "AF",
+          "label_name": "Atrial_Fibrillation",
+          "pai": 0.8992,
+          "score_final": 0.8163,
+          "s_ai": 0.4496,
+          "s_symptom": 0.2667,
+          "s_risk": 0.1,
+          "s_rule": 0.0,
+          "confidence_label": "CONFIRMED",
+          "tier": 2,
+          "is_tier1": false,
+          "default_action": "Rate or rhythm control \u2014 CHA2DS2-VASc anticoagulation assessment",
+          "supporting": [
+            "palpitations",
+            "dyspnea",
+            "htn"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 3,
+          "label_id": "RBBB",
+          "label_name": "Right_Bundle_Branch_Block",
+          "pai": 0.117,
+          "score_final": 0.2585,
+          "s_ai": 0.0585,
+          "s_symptom": 0.2,
+          "s_risk": 0.0,
+          "s_rule": 0.0,
+          "confidence_label": "INCIDENTAL",
+          "tier": 3,
+          "is_tier1": false,
+          "default_action": "Outpatient cardiology review \u2014 evaluate for underlying cause",
+          "supporting": [
+            "dyspnea",
+            "palpitations"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        }
+      ],
+      "suppressed": [],
+      "critical_alerts": [],
+      "derived_log": [],
+      "has_history": true,
+      "n_symptoms": 2,
+      "n_risk_factors": 1,
+      "n_vitals": 1
+    },
+    {
+      "record_id": "MOCK00008",
+      "error": null,
+      "top_diagnosis": {
+        "label_id": "VF",
+        "score_final": 0.0555,
+        "confidence_label": "POSSIBLE",
+        "tier": 1
+      },
+      "differential": [
+        {
+          "rank": 1,
+          "label_id": "VF",
+          "label_name": "Ventricular_Fibrillation",
+          "pai": 0.1109,
+          "score_final": 0.0555,
+          "s_ai": 0.0555,
+          "s_symptom": 0.0,
+          "s_risk": 0.0,
+          "s_rule": 0.0,
+          "confidence_label": "POSSIBLE",
+          "tier": 1,
+          "is_tier1": true,
+          "default_action": "Start ACLS \u2014 immediate defibrillation",
+          "supporting": [],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 2,
+          "label_id": "VT",
+          "label_name": "Ventricular_Tachycardia",
+          "pai": 0.1058,
+          "score_final": 0.0529,
+          "s_ai": 0.0529,
+          "s_symptom": 0.0,
+          "s_risk": 0.0,
+          "s_rule": 0.0,
+          "confidence_label": "POSSIBLE",
+          "tier": 1,
+          "is_tier1": true,
+          "default_action": "Assess pulse \u2014 cardioversion if pulseless or haemodynamically unstable",
+          "supporting": [],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 3,
+          "label_id": "ST_Depression",
+          "label_name": "ST_Depression_Pattern",
+          "pai": 0.1079,
+          "score_final": 0.054,
+          "s_ai": 0.054,
+          "s_symptom": 0.0,
+          "s_risk": 0.0,
+          "s_rule": 0.0,
+          "confidence_label": "INCIDENTAL",
+          "tier": 2,
+          "is_tier1": false,
+          "default_action": "Clinical assessment \u2014 serial ECG \u2014 troponin",
+          "supporting": [],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 4,
+          "label_id": "NSR",
+          "label_name": "Normal_Sinus_Rhythm",
+          "pai": 0.9209,
+          "score_final": 0.4605,
+          "s_ai": 0.4605,
+          "s_symptom": 0.0,
+          "s_risk": 0.0,
+          "s_rule": 0.0,
+          "confidence_label": "POSSIBLE",
+          "tier": 3,
+          "is_tier1": false,
+          "default_action": "No action required",
+          "supporting": [],
+          "contradicting": [
+            "patient is asymptomatic"
+          ],
+          "is_suppressed": false
+        },
+        {
+          "rank": 5,
+          "label_id": "RBBB",
+          "label_name": "Right_Bundle_Branch_Block",
+          "pai": 0.1374,
+          "score_final": 0.0687,
+          "s_ai": 0.0687,
+          "s_symptom": 0.0,
+          "s_risk": 0.0,
+          "s_rule": 0.0,
+          "confidence_label": "INCIDENTAL",
+          "tier": 3,
+          "is_tier1": false,
+          "default_action": "Outpatient cardiology review \u2014 evaluate for underlying cause",
+          "supporting": [],
+          "contradicting": [],
+          "is_suppressed": false
+        }
+      ],
+      "suppressed": [],
+      "critical_alerts": [],
+      "derived_log": [],
+      "has_history": false,
+      "n_symptoms": 0,
+      "n_risk_factors": 0,
+      "n_vitals": 0
+    },
+    {
+      "record_id": "MOCK00009",
+      "error": null,
+      "top_diagnosis": {
+        "label_id": "VT",
+        "score_final": 0.8303,
+        "confidence_label": "CONFIRMED",
+        "tier": 1
+      },
+      "differential": [
+        {
+          "rank": 1,
+          "label_id": "VT",
+          "label_name": "Ventricular_Tachycardia",
+          "pai": 0.9272,
+          "score_final": 0.8303,
+          "s_ai": 0.4636,
+          "s_symptom": 0.2667,
+          "s_risk": 0.1,
+          "s_rule": 0.0,
+          "confidence_label": "CONFIRMED",
+          "tier": 1,
+          "is_tier1": true,
+          "default_action": "Assess pulse \u2014 cardioversion if pulseless or haemodynamically unstable",
+          "supporting": [
+            "palpitations",
+            "syncope",
+            "prior mi",
+            "sbp lt 90",
+            "hr gt 150"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 2,
+          "label_id": "VF",
+          "label_name": "Ventricular_Fibrillation",
+          "pai": 0.1871,
+          "score_final": 0.3935,
+          "s_ai": 0.0935,
+          "s_symptom": 0.2,
+          "s_risk": 0.1,
+          "s_rule": 0.0,
+          "confidence_label": "POSSIBLE",
+          "tier": 1,
+          "is_tier1": true,
+          "default_action": "Start ACLS \u2014 immediate defibrillation",
+          "supporting": [
+            "syncope",
+            "sbp lt 90",
+            "prior mi"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 3,
+          "label_id": "NSR",
+          "label_name": "Normal_Sinus_Rhythm",
+          "pai": 0.1731,
+          "score_final": 0.0866,
+          "s_ai": 0.0866,
+          "s_symptom": 0.0,
+          "s_risk": 0.0,
+          "s_rule": 0.0,
+          "confidence_label": "INCIDENTAL",
+          "tier": 3,
+          "is_tier1": false,
+          "default_action": "No action required",
+          "supporting": [],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 4,
+          "label_id": "LVH",
+          "label_name": "Left_Ventricular_Hypertrophy",
+          "pai": 0.1293,
+          "score_final": 0.0646,
+          "s_ai": 0.0646,
+          "s_symptom": 0.0,
+          "s_risk": 0.0,
+          "s_rule": 0.0,
+          "confidence_label": "INCIDENTAL",
+          "tier": 3,
+          "is_tier1": false,
+          "default_action": "Blood pressure control \u2014 outpatient cardiology evaluation",
+          "supporting": [],
+          "contradicting": [],
+          "is_suppressed": false
+        }
+      ],
+      "suppressed": [],
+      "critical_alerts": [
+        {
+          "label_id": "VT",
+          "score_final": 0.8303,
+          "confidence_label": "CONFIRMED"
+        }
+      ],
+      "derived_log": [],
+      "has_history": true,
+      "n_symptoms": 2,
+      "n_risk_factors": 1,
+      "n_vitals": 2
+    },
+    {
+      "record_id": "MOCK00010",
+      "error": null,
+      "top_diagnosis": {
+        "label_id": "ST_Elevation",
+        "score_final": 0.0541,
+        "confidence_label": "INCIDENTAL",
+        "tier": 2
+      },
+      "differential": [
+        {
+          "rank": 1,
+          "label_id": "ST_Elevation",
+          "label_name": "ST_Elevation_Pattern",
+          "pai": 0.1081,
+          "score_final": 0.0541,
+          "s_ai": 0.0541,
+          "s_symptom": 0.0,
+          "s_risk": 0.0,
+          "s_rule": 0.0,
+          "confidence_label": "INCIDENTAL",
+          "tier": 2,
+          "is_tier1": false,
+          "default_action": "Urgent clinical assessment \u2014 do not act on ECG pattern alone",
+          "supporting": [],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 2,
+          "label_id": "LVH",
+          "label_name": "Left_Ventricular_Hypertrophy",
+          "pai": 0.8272,
+          "score_final": 0.7136,
+          "s_ai": 0.4136,
+          "s_symptom": 0.2,
+          "s_risk": 0.1,
+          "s_rule": 0.0,
+          "confidence_label": "PROBABLE",
+          "tier": 3,
+          "is_tier1": false,
+          "default_action": "Blood pressure control \u2014 outpatient cardiology evaluation",
+          "supporting": [
+            "htn",
+            "dyspnea",
+            "sbp gt 140"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 3,
+          "label_id": "NSR",
+          "label_name": "Normal_Sinus_Rhythm",
+          "pai": 0.5516,
+          "score_final": 0.2758,
+          "s_ai": 0.2758,
+          "s_symptom": 0.0,
+          "s_risk": 0.0,
+          "s_rule": 0.0,
+          "confidence_label": "INCIDENTAL",
+          "tier": 3,
+          "is_tier1": false,
+          "default_action": "No action required",
+          "supporting": [],
+          "contradicting": [],
+          "is_suppressed": false
+        }
+      ],
+      "suppressed": [],
+      "critical_alerts": [],
+      "derived_log": [],
+      "has_history": true,
+      "n_symptoms": 1,
+      "n_risk_factors": 1,
+      "n_vitals": 1
+    },
+    {
+      "record_id": "MOCK00011",
+      "error": null,
+      "top_diagnosis": {
+        "label_id": "STEMI",
+        "score_final": 0.7803,
+        "confidence_label": "PROBABLE",
+        "tier": 1
+      },
+      "differential": [
+        {
+          "rank": 1,
+          "label_id": "STEMI",
+          "label_name": "ST_Elevation_MI",
+          "pai": 0.8273,
+          "score_final": 0.7803,
+          "s_ai": 0.4136,
+          "s_symptom": 0.2667,
+          "s_risk": 0.1,
+          "s_rule": 0.0,
+          "confidence_label": "PROBABLE",
+          "tier": 1,
+          "is_tier1": true,
+          "default_action": "Immediate PCI referral \u2014 door-to-balloon <90 min",
+          "supporting": [
+            "chest pain",
+            "diaphoresis",
+            "cad",
+            "sbp lt 90",
+            "spo2 lt 94",
+            "hr gt 100"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 2,
+          "label_id": "NSTEMI",
+          "label_name": "Non_ST_Elevation_MI",
+          "pai": 0.2718,
+          "score_final": 0.4359,
+          "s_ai": 0.1359,
+          "s_symptom": 0.2,
+          "s_risk": 0.1,
+          "s_rule": 0.0,
+          "confidence_label": "POSSIBLE",
+          "tier": 1,
+          "is_tier1": true,
+          "default_action": "Immediate anticoagulation and urgent cardiology referral",
+          "supporting": [
+            "chest pain",
+            "diaphoresis",
+            "cad",
+            "htn",
+            "sbp lt 90"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 3,
+          "label_id": "ST_Elevation",
+          "label_name": "ST_Elevation_Pattern",
+          "pai": 0.822,
+          "score_final": 0.661,
+          "s_ai": 0.411,
+          "s_symptom": 0.15,
+          "s_risk": 0.1,
+          "s_rule": 0.0,
+          "confidence_label": "PROBABLE",
+          "tier": 2,
+          "is_tier1": false,
+          "default_action": "Urgent clinical assessment \u2014 do not act on ECG pattern alone",
+          "supporting": [
+            "chest pain",
+            "cad"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 4,
+          "label_id": "LBBB",
+          "label_name": "Left_Bundle_Branch_Block",
+          "pai": 0.1034,
+          "score_final": 0.3517,
+          "s_ai": 0.0517,
+          "s_symptom": 0.2,
+          "s_risk": 0.1,
+          "s_rule": 0.0,
+          "confidence_label": "POSSIBLE",
+          "tier": 2,
+          "is_tier1": false,
+          "default_action": "Urgent cardiology review \u2014 rule out ACS \u2014 serial ECG and troponin",
+          "supporting": [
+            "chest pain",
+            "cad"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 5,
+          "label_id": "SVT",
+          "label_name": "Supraventricular_Tachycardia",
+          "pai": 0.1324,
+          "score_final": 0.0662,
+          "s_ai": 0.0662,
+          "s_symptom": 0.0,
+          "s_risk": 0.0,
+          "s_rule": 0.0,
+          "confidence_label": "INCIDENTAL",
+          "tier": 2,
+          "is_tier1": false,
+          "default_action": "Vagal manoeuvres or adenosine \u2014 cardioversion if unstable",
+          "supporting": [],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 6,
+          "label_id": "RBBB",
+          "label_name": "Right_Bundle_Branch_Block",
+          "pai": 0.1259,
+          "score_final": 0.1829,
+          "s_ai": 0.0629,
+          "s_symptom": 0.084,
+          "s_risk": 0.036,
+          "s_rule": 0.0,
+          "confidence_label": "INCIDENTAL",
+          "tier": 3,
+          "is_tier1": false,
+          "default_action": "Outpatient cardiology review \u2014 evaluate for underlying cause",
+          "supporting": [
+            "spo2 lt 94"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        }
+      ],
+      "suppressed": [],
+      "critical_alerts": [
+        {
+          "label_id": "STEMI",
+          "score_final": 0.7803,
+          "confidence_label": "PROBABLE"
+        }
+      ],
+      "derived_log": [],
+      "has_history": true,
+      "n_symptoms": 2,
+      "n_risk_factors": 2,
+      "n_vitals": 3
+    },
+    {
+      "record_id": "MOCK00012",
+      "error": null,
+      "top_diagnosis": {
+        "label_id": "STEMI",
+        "score_final": 0.2158,
+        "confidence_label": "POSSIBLE",
+        "tier": 1
+      },
+      "differential": [
+        {
+          "rank": 1,
+          "label_id": "STEMI",
+          "label_name": "ST_Elevation_MI",
+          "pai": 0.1116,
+          "score_final": 0.2158,
+          "s_ai": 0.0558,
+          "s_symptom": 0.16,
+          "s_risk": 0.0,
+          "s_rule": 0.0,
+          "confidence_label": "POSSIBLE",
+          "tier": 1,
+          "is_tier1": true,
+          "default_action": "Immediate PCI referral \u2014 door-to-balloon <90 min",
+          "supporting": [
+            "dyspnea",
+            "hr gt 100"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 2,
+          "label_id": "NSTEMI",
+          "label_name": "Non_ST_Elevation_MI",
+          "pai": 0.1003,
+          "score_final": 0.2102,
+          "s_ai": 0.0502,
+          "s_symptom": 0.08,
+          "s_risk": 0.08,
+          "s_rule": 0.0,
+          "confidence_label": "POSSIBLE",
+          "tier": 1,
+          "is_tier1": true,
+          "default_action": "Immediate anticoagulation and urgent cardiology referral",
+          "supporting": [
+            "dyspnea",
+            "htn"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 3,
+          "label_id": "AF",
+          "label_name": "Atrial_Fibrillation",
+          "pai": 0.8825,
+          "score_final": 0.808,
+          "s_ai": 0.4413,
+          "s_symptom": 0.2667,
+          "s_risk": 0.1,
+          "s_rule": 0.0,
+          "confidence_label": "CONFIRMED",
+          "tier": 2,
+          "is_tier1": false,
+          "default_action": "Rate or rhythm control \u2014 CHA2DS2-VASc anticoagulation assessment",
+          "supporting": [
+            "palpitations",
+            "dyspnea",
+            "htn"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 4,
+          "label_id": "ST_Depression",
+          "label_name": "ST_Depression_Pattern",
+          "pai": 0.1309,
+          "score_final": 0.0654,
+          "s_ai": 0.0654,
+          "s_symptom": 0.0,
+          "s_risk": 0.0,
+          "s_rule": 0.0,
+          "confidence_label": "INCIDENTAL",
+          "tier": 2,
+          "is_tier1": false,
+          "default_action": "Clinical assessment \u2014 serial ECG \u2014 troponin",
+          "supporting": [],
+          "contradicting": [],
+          "is_suppressed": false
+        }
+      ],
+      "suppressed": [
+        {
+          "rank": 0,
+          "label_id": "NSR",
+          "label_name": "Normal_Sinus_Rhythm",
+          "pai": 0.1019,
+          "score_final": 0.051,
+          "s_ai": 0.051,
+          "s_symptom": 0.0,
+          "s_risk": 0.0,
+          "s_rule": 0.0,
+          "confidence_label": "INCIDENTAL",
+          "tier": 3,
+          "is_tier1": false,
+          "default_action": "No action required",
+          "supporting": [],
+          "contradicting": [],
+          "is_suppressed": true
+        }
+      ],
+      "critical_alerts": [],
+      "derived_log": [],
+      "has_history": true,
+      "n_symptoms": 2,
+      "n_risk_factors": 1,
+      "n_vitals": 1
+    },
+    {
+      "record_id": "MOCK00013",
+      "error": null,
+      "top_diagnosis": {
+        "label_id": "STEMI",
+        "score_final": 0.0522,
+        "confidence_label": "POSSIBLE",
+        "tier": 1
+      },
+      "differential": [
+        {
+          "rank": 1,
+          "label_id": "STEMI",
+          "label_name": "ST_Elevation_MI",
+          "pai": 0.1044,
+          "score_final": 0.0522,
+          "s_ai": 0.0522,
+          "s_symptom": 0.0,
+          "s_risk": 0.0,
+          "s_rule": 0.0,
+          "confidence_label": "POSSIBLE",
+          "tier": 1,
+          "is_tier1": true,
+          "default_action": "Immediate PCI referral \u2014 door-to-balloon <90 min",
+          "supporting": [],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 2,
+          "label_id": "VT",
+          "label_name": "Ventricular_Tachycardia",
+          "pai": 0.1028,
+          "score_final": 0.0514,
+          "s_ai": 0.0514,
+          "s_symptom": 0.0,
+          "s_risk": 0.0,
+          "s_rule": 0.0,
+          "confidence_label": "POSSIBLE",
+          "tier": 1,
+          "is_tier1": true,
+          "default_action": "Assess pulse \u2014 cardioversion if pulseless or haemodynamically unstable",
+          "supporting": [],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 3,
+          "label_id": "LBBB",
+          "label_name": "Left_Bundle_Branch_Block",
+          "pai": 0.1234,
+          "score_final": 0.0617,
+          "s_ai": 0.0617,
+          "s_symptom": 0.0,
+          "s_risk": 0.0,
+          "s_rule": 0.0,
+          "confidence_label": "INCIDENTAL",
+          "tier": 2,
+          "is_tier1": false,
+          "default_action": "Urgent cardiology review \u2014 rule out ACS \u2014 serial ECG and troponin",
+          "supporting": [],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 4,
+          "label_id": "ST_Elevation",
+          "label_name": "ST_Elevation_Pattern",
+          "pai": 0.1017,
+          "score_final": 0.0508,
+          "s_ai": 0.0508,
+          "s_symptom": 0.0,
+          "s_risk": 0.0,
+          "s_rule": 0.0,
+          "confidence_label": "INCIDENTAL",
+          "tier": 2,
+          "is_tier1": false,
+          "default_action": "Urgent clinical assessment \u2014 do not act on ECG pattern alone",
+          "supporting": [],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 5,
+          "label_id": "NSR",
+          "label_name": "Normal_Sinus_Rhythm",
+          "pai": 0.927,
+          "score_final": 0.4635,
+          "s_ai": 0.4635,
+          "s_symptom": 0.0,
+          "s_risk": 0.0,
+          "s_rule": 0.0,
+          "confidence_label": "POSSIBLE",
+          "tier": 3,
+          "is_tier1": false,
+          "default_action": "No action required",
+          "supporting": [],
+          "contradicting": [
+            "patient is asymptomatic"
+          ],
+          "is_suppressed": false
+        }
+      ],
+      "suppressed": [],
+      "critical_alerts": [],
+      "derived_log": [],
+      "has_history": false,
+      "n_symptoms": 0,
+      "n_risk_factors": 0,
+      "n_vitals": 0
+    },
+    {
+      "record_id": "MOCK00014",
+      "error": null,
+      "top_diagnosis": {
+        "label_id": "VT",
+        "score_final": 0.7888,
+        "confidence_label": "PROBABLE",
+        "tier": 1
+      },
+      "differential": [
+        {
+          "rank": 1,
+          "label_id": "VT",
+          "label_name": "Ventricular_Tachycardia",
+          "pai": 0.8441,
+          "score_final": 0.7888,
+          "s_ai": 0.4221,
+          "s_symptom": 0.2667,
+          "s_risk": 0.1,
+          "s_rule": 0.0,
+          "confidence_label": "PROBABLE",
+          "tier": 1,
+          "is_tier1": true,
+          "default_action": "Assess pulse \u2014 cardioversion if pulseless or haemodynamically unstable",
+          "supporting": [
+            "palpitations",
+            "syncope",
+            "prior mi",
+            "sbp lt 90",
+            "hr gt 150"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 2,
+          "label_id": "VF",
+          "label_name": "Ventricular_Fibrillation",
+          "pai": 0.2338,
+          "score_final": 0.4169,
+          "s_ai": 0.1169,
+          "s_symptom": 0.2,
+          "s_risk": 0.1,
+          "s_rule": 0.0,
+          "confidence_label": "POSSIBLE",
+          "tier": 1,
+          "is_tier1": true,
+          "default_action": "Start ACLS \u2014 immediate defibrillation",
+          "supporting": [
+            "syncope",
+            "sbp lt 90",
+            "prior mi"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 3,
+          "label_id": "LVH",
+          "label_name": "Left_Ventricular_Hypertrophy",
+          "pai": 0.1213,
+          "score_final": 0.0607,
+          "s_ai": 0.0607,
+          "s_symptom": 0.0,
+          "s_risk": 0.0,
+          "s_rule": 0.0,
+          "confidence_label": "INCIDENTAL",
+          "tier": 3,
+          "is_tier1": false,
+          "default_action": "Blood pressure control \u2014 outpatient cardiology evaluation",
+          "supporting": [],
+          "contradicting": [],
+          "is_suppressed": false
+        }
+      ],
+      "suppressed": [],
+      "critical_alerts": [
+        {
+          "label_id": "VT",
+          "score_final": 0.7888,
+          "confidence_label": "PROBABLE"
+        }
+      ],
+      "derived_log": [],
+      "has_history": true,
+      "n_symptoms": 2,
+      "n_risk_factors": 1,
+      "n_vitals": 2
+    },
+    {
+      "record_id": "MOCK00015",
+      "error": null,
+      "top_diagnosis": {
+        "label_id": "STEMI",
+        "score_final": 0.1648,
+        "confidence_label": "POSSIBLE",
+        "tier": 1
+      },
+      "differential": [
+        {
+          "rank": 1,
+          "label_id": "STEMI",
+          "label_name": "ST_Elevation_MI",
+          "pai": 0.1296,
+          "score_final": 0.1648,
+          "s_ai": 0.0648,
+          "s_symptom": 0.1,
+          "s_risk": 0.0,
+          "s_rule": 0.0,
+          "confidence_label": "POSSIBLE",
+          "tier": 1,
+          "is_tier1": true,
+          "default_action": "Immediate PCI referral \u2014 door-to-balloon <90 min",
+          "supporting": [
+            "dyspnea"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 2,
+          "label_id": "ST_Depression",
+          "label_name": "ST_Depression_Pattern",
+          "pai": 0.1188,
+          "score_final": 0.0594,
+          "s_ai": 0.0594,
+          "s_symptom": 0.0,
+          "s_risk": 0.0,
+          "s_rule": 0.0,
+          "confidence_label": "INCIDENTAL",
+          "tier": 2,
+          "is_tier1": false,
+          "default_action": "Clinical assessment \u2014 serial ECG \u2014 troponin",
+          "supporting": [],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 3,
+          "label_id": "LVH",
+          "label_name": "Left_Ventricular_Hypertrophy",
+          "pai": 0.7771,
+          "score_final": 0.6885,
+          "s_ai": 0.3885,
+          "s_symptom": 0.2,
+          "s_risk": 0.1,
+          "s_rule": 0.0,
+          "confidence_label": "PROBABLE",
+          "tier": 3,
+          "is_tier1": false,
+          "default_action": "Blood pressure control \u2014 outpatient cardiology evaluation",
+          "supporting": [
+            "htn",
+            "dyspnea",
+            "sbp gt 140"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 4,
+          "label_id": "NSR",
+          "label_name": "Normal_Sinus_Rhythm",
+          "pai": 0.5559,
+          "score_final": 0.278,
+          "s_ai": 0.278,
+          "s_symptom": 0.0,
+          "s_risk": 0.0,
+          "s_rule": 0.0,
+          "confidence_label": "INCIDENTAL",
+          "tier": 3,
+          "is_tier1": false,
+          "default_action": "No action required",
+          "supporting": [],
+          "contradicting": [],
+          "is_suppressed": false
+        }
+      ],
+      "suppressed": [],
+      "critical_alerts": [],
+      "derived_log": [],
+      "has_history": true,
+      "n_symptoms": 1,
+      "n_risk_factors": 1,
+      "n_vitals": 1
+    },
+    {
+      "record_id": "MOCK00016",
+      "error": null,
+      "top_diagnosis": {
+        "label_id": "STEMI",
+        "score_final": 0.8016,
+        "confidence_label": "CONFIRMED",
+        "tier": 1
+      },
+      "differential": [
+        {
+          "rank": 1,
+          "label_id": "STEMI",
+          "label_name": "ST_Elevation_MI",
+          "pai": 0.8697,
+          "score_final": 0.8016,
+          "s_ai": 0.4349,
+          "s_symptom": 0.2667,
+          "s_risk": 0.1,
+          "s_rule": 0.0,
+          "confidence_label": "CONFIRMED",
+          "tier": 1,
+          "is_tier1": true,
+          "default_action": "Immediate PCI referral \u2014 door-to-balloon <90 min",
+          "supporting": [
+            "chest pain",
+            "diaphoresis",
+            "cad",
+            "sbp lt 90",
+            "spo2 lt 94",
+            "hr gt 100"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 2,
+          "label_id": "NSTEMI",
+          "label_name": "Non_ST_Elevation_MI",
+          "pai": 0.252,
+          "score_final": 0.426,
+          "s_ai": 0.126,
+          "s_symptom": 0.2,
+          "s_risk": 0.1,
+          "s_rule": 0.0,
+          "confidence_label": "POSSIBLE",
+          "tier": 1,
+          "is_tier1": true,
+          "default_action": "Immediate anticoagulation and urgent cardiology referral",
+          "supporting": [
+            "chest pain",
+            "diaphoresis",
+            "cad",
+            "htn",
+            "sbp lt 90"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 3,
+          "label_id": "VT",
+          "label_name": "Ventricular_Tachycardia",
+          "pai": 0.1189,
+          "score_final": 0.1595,
+          "s_ai": 0.0595,
+          "s_symptom": 0.0,
+          "s_risk": 0.1,
+          "s_rule": 0.0,
+          "confidence_label": "POSSIBLE",
+          "tier": 1,
+          "is_tier1": true,
+          "default_action": "Assess pulse \u2014 cardioversion if pulseless or haemodynamically unstable",
+          "supporting": [
+            "cad",
+            "sbp lt 90"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 4,
+          "label_id": "ST_Elevation",
+          "label_name": "ST_Elevation_Pattern",
+          "pai": 0.7723,
+          "score_final": 0.6362,
+          "s_ai": 0.3862,
+          "s_symptom": 0.15,
+          "s_risk": 0.1,
+          "s_rule": 0.0,
+          "confidence_label": "PROBABLE",
+          "tier": 2,
+          "is_tier1": false,
+          "default_action": "Urgent clinical assessment \u2014 do not act on ECG pattern alone",
+          "supporting": [
+            "chest pain",
+            "cad"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 5,
+          "label_id": "LVH",
+          "label_name": "Left_Ventricular_Hypertrophy",
+          "pai": 0.1184,
+          "score_final": 0.1592,
+          "s_ai": 0.0592,
+          "s_symptom": 0.0,
+          "s_risk": 0.1,
+          "s_rule": 0.0,
+          "confidence_label": "INCIDENTAL",
+          "tier": 3,
+          "is_tier1": false,
+          "default_action": "Blood pressure control \u2014 outpatient cardiology evaluation",
+          "supporting": [
+            "htn"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        }
+      ],
+      "suppressed": [],
+      "critical_alerts": [
+        {
+          "label_id": "STEMI",
+          "score_final": 0.8016,
+          "confidence_label": "CONFIRMED"
+        }
+      ],
+      "derived_log": [],
+      "has_history": true,
+      "n_symptoms": 2,
+      "n_risk_factors": 2,
+      "n_vitals": 3
+    },
+    {
+      "record_id": "MOCK00017",
+      "error": null,
+      "top_diagnosis": {
+        "label_id": "NSTEMI",
+        "score_final": 0.2253,
+        "confidence_label": "POSSIBLE",
+        "tier": 1
+      },
+      "differential": [
+        {
+          "rank": 1,
+          "label_id": "NSTEMI",
+          "label_name": "Non_ST_Elevation_MI",
+          "pai": 0.1307,
+          "score_final": 0.2253,
+          "s_ai": 0.0653,
+          "s_symptom": 0.08,
+          "s_risk": 0.08,
+          "s_rule": 0.0,
+          "confidence_label": "POSSIBLE",
+          "tier": 1,
+          "is_tier1": true,
+          "default_action": "Immediate anticoagulation and urgent cardiology referral",
+          "supporting": [
+            "dyspnea",
+            "htn"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 2,
+          "label_id": "STEMI",
+          "label_name": "ST_Elevation_MI",
+          "pai": 0.1038,
+          "score_final": 0.2119,
+          "s_ai": 0.0519,
+          "s_symptom": 0.16,
+          "s_risk": 0.0,
+          "s_rule": 0.0,
+          "confidence_label": "POSSIBLE",
+          "tier": 1,
+          "is_tier1": true,
+          "default_action": "Immediate PCI referral \u2014 door-to-balloon <90 min",
+          "supporting": [
+            "dyspnea",
+            "hr gt 100"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 3,
+          "label_id": "AF",
+          "label_name": "Atrial_Fibrillation",
+          "pai": 0.8704,
+          "score_final": 0.8019,
+          "s_ai": 0.4352,
+          "s_symptom": 0.2667,
+          "s_risk": 0.1,
+          "s_rule": 0.0,
+          "confidence_label": "CONFIRMED",
+          "tier": 2,
+          "is_tier1": false,
+          "default_action": "Rate or rhythm control \u2014 CHA2DS2-VASc anticoagulation assessment",
+          "supporting": [
+            "palpitations",
+            "dyspnea",
+            "htn"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        }
+      ],
+      "suppressed": [
+        {
+          "rank": 0,
+          "label_id": "SVT",
+          "label_name": "Supraventricular_Tachycardia",
+          "pai": 0.1104,
+          "score_final": 0.3052,
+          "s_ai": 0.0552,
+          "s_symptom": 0.25,
+          "s_risk": 0.0,
+          "s_rule": 0.0,
+          "confidence_label": "POSSIBLE",
+          "tier": 2,
+          "is_tier1": false,
+          "default_action": "Vagal manoeuvres or adenosine \u2014 cardioversion if unstable",
+          "supporting": [
+            "palpitations"
+          ],
+          "contradicting": [],
+          "is_suppressed": true
+        }
+      ],
+      "critical_alerts": [],
+      "derived_log": [],
+      "has_history": true,
+      "n_symptoms": 2,
+      "n_risk_factors": 1,
+      "n_vitals": 1
+    },
+    {
+      "record_id": "MOCK00018",
+      "error": null,
+      "top_diagnosis": {
+        "label_id": "ST_Depression",
+        "score_final": 0.072,
+        "confidence_label": "INCIDENTAL",
+        "tier": 2
+      },
+      "differential": [
+        {
+          "rank": 1,
+          "label_id": "ST_Depression",
+          "label_name": "ST_Depression_Pattern",
+          "pai": 0.144,
+          "score_final": 0.072,
+          "s_ai": 0.072,
+          "s_symptom": 0.0,
+          "s_risk": 0.0,
+          "s_rule": 0.0,
+          "confidence_label": "INCIDENTAL",
+          "tier": 2,
+          "is_tier1": false,
+          "default_action": "Clinical assessment \u2014 serial ECG \u2014 troponin",
+          "supporting": [],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 2,
+          "label_id": "NSR",
+          "label_name": "Normal_Sinus_Rhythm",
+          "pai": 0.9609,
+          "score_final": 0.4805,
+          "s_ai": 0.4805,
+          "s_symptom": 0.0,
+          "s_risk": 0.0,
+          "s_rule": 0.0,
+          "confidence_label": "POSSIBLE",
+          "tier": 3,
+          "is_tier1": false,
+          "default_action": "No action required",
+          "supporting": [],
+          "contradicting": [
+            "patient is asymptomatic"
+          ],
+          "is_suppressed": false
+        },
+        {
+          "rank": 3,
+          "label_id": "LVH",
+          "label_name": "Left_Ventricular_Hypertrophy",
+          "pai": 0.1885,
+          "score_final": 0.0942,
+          "s_ai": 0.0942,
+          "s_symptom": 0.0,
+          "s_risk": 0.0,
+          "s_rule": 0.0,
+          "confidence_label": "INCIDENTAL",
+          "tier": 3,
+          "is_tier1": false,
+          "default_action": "Blood pressure control \u2014 outpatient cardiology evaluation",
+          "supporting": [],
+          "contradicting": [],
+          "is_suppressed": false
+        }
+      ],
+      "suppressed": [],
+      "critical_alerts": [],
+      "derived_log": [],
+      "has_history": false,
+      "n_symptoms": 0,
+      "n_risk_factors": 0,
+      "n_vitals": 0
+    },
+    {
+      "record_id": "MOCK00019",
+      "error": null,
+      "top_diagnosis": {
+        "label_id": "VT",
+        "score_final": 0.7614,
+        "confidence_label": "PROBABLE",
+        "tier": 1
+      },
+      "differential": [
+        {
+          "rank": 1,
+          "label_id": "VT",
+          "label_name": "Ventricular_Tachycardia",
+          "pai": 0.7894,
+          "score_final": 0.7614,
+          "s_ai": 0.3947,
+          "s_symptom": 0.2667,
+          "s_risk": 0.1,
+          "s_rule": 0.0,
+          "confidence_label": "PROBABLE",
+          "tier": 1,
+          "is_tier1": true,
+          "default_action": "Assess pulse \u2014 cardioversion if pulseless or haemodynamically unstable",
+          "supporting": [
+            "palpitations",
+            "syncope",
+            "prior mi",
+            "sbp lt 90",
+            "hr gt 150"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 2,
+          "label_id": "VF",
+          "label_name": "Ventricular_Fibrillation",
+          "pai": 0.1482,
+          "score_final": 0.3741,
+          "s_ai": 0.0741,
+          "s_symptom": 0.2,
+          "s_risk": 0.1,
+          "s_rule": 0.0,
+          "confidence_label": "POSSIBLE",
+          "tier": 1,
+          "is_tier1": true,
+          "default_action": "Start ACLS \u2014 immediate defibrillation",
+          "supporting": [
+            "syncope",
+            "sbp lt 90",
+            "prior mi"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 3,
+          "label_id": "SVT",
+          "label_name": "Supraventricular_Tachycardia",
+          "pai": 0.1118,
+          "score_final": 0.3559,
+          "s_ai": 0.0559,
+          "s_symptom": 0.3,
+          "s_risk": 0.0,
+          "s_rule": 0.0,
+          "confidence_label": "POSSIBLE",
+          "tier": 2,
+          "is_tier1": false,
+          "default_action": "Vagal manoeuvres or adenosine \u2014 cardioversion if unstable",
+          "supporting": [
+            "palpitations",
+            "syncope",
+            "hr gt 160"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 4,
+          "label_id": "RBBB",
+          "label_name": "Right_Bundle_Branch_Block",
+          "pai": 0.1024,
+          "score_final": 0.1512,
+          "s_ai": 0.0512,
+          "s_symptom": 0.1,
+          "s_risk": 0.0,
+          "s_rule": 0.0,
+          "confidence_label": "INCIDENTAL",
+          "tier": 3,
+          "is_tier1": false,
+          "default_action": "Outpatient cardiology review \u2014 evaluate for underlying cause",
+          "supporting": [
+            "palpitations"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        }
+      ],
+      "suppressed": [
+        {
+          "rank": 0,
+          "label_id": "AF",
+          "label_name": "Atrial_Fibrillation",
+          "pai": 0.1033,
+          "score_final": 0.3516,
+          "s_ai": 0.0516,
+          "s_symptom": 0.3,
+          "s_risk": 0.0,
+          "s_rule": 0.0,
+          "confidence_label": "POSSIBLE",
+          "tier": 2,
+          "is_tier1": false,
+          "default_action": "Rate or rhythm control \u2014 CHA2DS2-VASc anticoagulation assessment",
+          "supporting": [
+            "palpitations",
+            "syncope",
+            "hr gt 150"
+          ],
+          "contradicting": [],
+          "is_suppressed": true
+        }
+      ],
+      "critical_alerts": [
+        {
+          "label_id": "VT",
+          "score_final": 0.7614,
+          "confidence_label": "PROBABLE"
+        }
+      ],
+      "derived_log": [],
+      "has_history": true,
+      "n_symptoms": 2,
+      "n_risk_factors": 1,
+      "n_vitals": 2
+    },
+    {
+      "record_id": "MOCK00020",
+      "error": null,
+      "top_diagnosis": {
+        "label_id": "NSTEMI",
+        "score_final": 0.2166,
+        "confidence_label": "POSSIBLE",
+        "tier": 1
+      },
+      "differential": [
+        {
+          "rank": 1,
+          "label_id": "NSTEMI",
+          "label_name": "Non_ST_Elevation_MI",
+          "pai": 0.1133,
+          "score_final": 0.2166,
+          "s_ai": 0.0566,
+          "s_symptom": 0.08,
+          "s_risk": 0.08,
+          "s_rule": 0.0,
+          "confidence_label": "POSSIBLE",
+          "tier": 1,
+          "is_tier1": true,
+          "default_action": "Immediate anticoagulation and urgent cardiology referral",
+          "supporting": [
+            "dyspnea",
+            "htn"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 2,
+          "label_id": "VT",
+          "label_name": "Ventricular_Tachycardia",
+          "pai": 0.1292,
+          "score_final": 0.0646,
+          "s_ai": 0.0646,
+          "s_symptom": 0.0,
+          "s_risk": 0.0,
+          "s_rule": 0.0,
+          "confidence_label": "POSSIBLE",
+          "tier": 1,
+          "is_tier1": true,
+          "default_action": "Assess pulse \u2014 cardioversion if pulseless or haemodynamically unstable",
+          "supporting": [],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 3,
+          "label_id": "LVH",
+          "label_name": "Left_Ventricular_Hypertrophy",
+          "pai": 0.807,
+          "score_final": 0.7035,
+          "s_ai": 0.4035,
+          "s_symptom": 0.2,
+          "s_risk": 0.1,
+          "s_rule": 0.0,
+          "confidence_label": "PROBABLE",
+          "tier": 3,
+          "is_tier1": false,
+          "default_action": "Blood pressure control \u2014 outpatient cardiology evaluation",
+          "supporting": [
+            "htn",
+            "dyspnea",
+            "sbp gt 140"
+          ],
+          "contradicting": [],
+          "is_suppressed": false
+        },
+        {
+          "rank": 4,
+          "label_id": "NSR",
+          "label_name": "Normal_Sinus_Rhythm",
+          "pai": 0.5346,
+          "score_final": 0.2673,
+          "s_ai": 0.2673,
+          "s_symptom": 0.0,
+          "s_risk": 0.0,
+          "s_rule": 0.0,
+          "confidence_label": "INCIDENTAL",
+          "tier": 3,
+          "is_tier1": false,
+          "default_action": "No action required",
+          "supporting": [],
+          "contradicting": [],
+          "is_suppressed": false
+        }
+      ],
+      "suppressed": [],
+      "critical_alerts": [],
+      "derived_log": [],
+      "has_history": true,
+      "n_symptoms": 1,
+      "n_risk_factors": 1,
+      "n_vitals": 1
+    }
+  ]
+}
